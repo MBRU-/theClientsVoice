@@ -14,6 +14,9 @@
 		73A698DD1A270AC800F5C268 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73A698DC1A270AC800F5C268 /* Images.xcassets */; };
 		73A698E01A270AC800F5C268 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73A698DE1A270AC800F5C268 /* LaunchScreen.xib */; };
 		73A698EC1A270AC800F5C268 /* theClientsVoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A698EB1A270AC800F5C268 /* theClientsVoiceTests.swift */; };
+		73A698F71A270E8000F5C268 /* ibmClientCenter.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */; };
+		73A698F81A270E8000F5C268 /* ibmLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 73A698F61A270E8000F5C268 /* ibmLogo.jpg */; };
+		73CF025E1A2C9327006830B1 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF025D1A2C9327006830B1 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		73A698E51A270AC800F5C268 /* theClientsVoiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = theClientsVoiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A698EA1A270AC800F5C268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73A698EB1A270AC800F5C268 /* theClientsVoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = theClientsVoiceTests.swift; sourceTree = "<group>"; };
+		73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ibmClientCenter.jpg; sourceTree = "<group>"; };
+		73A698F61A270E8000F5C268 /* ibmLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ibmLogo.jpg; sourceTree = "<group>"; };
+		73CF025D1A2C9327006830B1 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 			children = (
 				73A698D21A270AC800F5C268 /* AppDelegate.swift */,
 				73A698D71A270AC800F5C268 /* ViewController.swift */,
+				73CF025D1A2C9327006830B1 /* Date.swift */,
 				73A698D91A270AC800F5C268 /* Main.storyboard */,
 				73A698DC1A270AC800F5C268 /* Images.xcassets */,
 				73A698DE1A270AC800F5C268 /* LaunchScreen.xib */,
@@ -93,6 +100,8 @@
 		73A698D01A270AC800F5C268 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */,
+				73A698F61A270E8000F5C268 /* ibmLogo.jpg */,
 				73A698D11A270AC800F5C268 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -164,6 +173,7 @@
 				TargetAttributes = {
 					73A698CC1A270AC800F5C268 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = T3RY7YUTLE;
 					};
 					73A698E41A270AC800F5C268 = {
 						CreatedOnToolsVersion = 6.1;
@@ -197,6 +207,8 @@
 			files = (
 				73A698DB1A270AC800F5C268 /* Main.storyboard in Resources */,
 				73A698E01A270AC800F5C268 /* LaunchScreen.xib in Resources */,
+				73A698F71A270E8000F5C268 /* ibmClientCenter.jpg in Resources */,
+				73A698F81A270E8000F5C268 /* ibmLogo.jpg in Resources */,
 				73A698DD1A270AC800F5C268 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,6 +230,7 @@
 				73A698D81A270AC800F5C268 /* ViewController.swift in Sources */,
 				73A698D31A270AC800F5C268 /* AppDelegate.swift in Sources */,
 				73A698D61A270AC800F5C268 /* theClientsVoice.xcdatamodeld in Sources */,
+				73CF025E1A2C9327006830B1 /* Date.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,9 +355,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = theClientsVoice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -352,9 +368,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = theClientsVoice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -411,6 +430,7 @@
 				73A698F11A270AC800F5C268 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		73A698F21A270AC800F5C268 /* Build configuration list for PBXNativeTarget "theClientsVoiceTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +439,7 @@
 				73A698F41A270AC800F5C268 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
