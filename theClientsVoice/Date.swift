@@ -12,7 +12,7 @@ let kDateFormat = 1
 let kTimeFormat = 2
 
 class Date {
-    
+
     class func toString(#dateOrTime: Int) -> String {
         var formatString = ""
         if dateOrTime == kDateFormat {

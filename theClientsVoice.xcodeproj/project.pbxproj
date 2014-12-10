@@ -9,14 +9,20 @@
 /* Begin PBXBuildFile section */
 		73A698D31A270AC800F5C268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A698D21A270AC800F5C268 /* AppDelegate.swift */; };
 		73A698D61A270AC800F5C268 /* theClientsVoice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 73A698D41A270AC800F5C268 /* theClientsVoice.xcdatamodeld */; };
-		73A698D81A270AC800F5C268 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A698D71A270AC800F5C268 /* ViewController.swift */; };
 		73A698DB1A270AC800F5C268 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A698D91A270AC800F5C268 /* Main.storyboard */; };
 		73A698DD1A270AC800F5C268 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73A698DC1A270AC800F5C268 /* Images.xcassets */; };
 		73A698E01A270AC800F5C268 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73A698DE1A270AC800F5C268 /* LaunchScreen.xib */; };
 		73A698EC1A270AC800F5C268 /* theClientsVoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A698EB1A270AC800F5C268 /* theClientsVoiceTests.swift */; };
 		73A698F71A270E8000F5C268 /* ibmClientCenter.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */; };
 		73A698F81A270E8000F5C268 /* ibmLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 73A698F61A270E8000F5C268 /* ibmLogo.jpg */; };
+		73AA7CBB1A2F3C8100DC1308 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AA7CBA1A2F3C8000DC1308 /* StartViewController.swift */; };
+		73AA7CBF1A2F3E6300DC1308 /* QCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AA7CBE1A2F3E6300DC1308 /* QCell.swift */; };
 		73CF025E1A2C9327006830B1 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF025D1A2C9327006830B1 /* Date.swift */; };
+		73D2E4F21A371D8700276556 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E4F11A371D8700276556 /* MainViewController.swift */; };
+		73D2E4F41A3720C500276556 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E4F31A3720C500276556 /* Question.swift */; };
+		73D2E4F61A37218600276556 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E4F51A37218600276556 /* User.swift */; };
+		73D2E4F91A3723AF00276556 /* MainAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E4F81A3723AF00276556 /* MainAdminViewController.swift */; };
+		73D2E4FB1A37344E00276556 /* AddQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E4FA1A37344E00276556 /* AddQuestionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +40,6 @@
 		73A698D11A270AC800F5C268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73A698D21A270AC800F5C268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73A698D51A270AC800F5C268 /* theClientsVoice.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = theClientsVoice.xcdatamodel; sourceTree = "<group>"; };
-		73A698D71A270AC800F5C268 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		73A698DA1A270AC800F5C268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		73A698DC1A270AC800F5C268 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		73A698DF1A270AC800F5C268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -43,7 +48,14 @@
 		73A698EB1A270AC800F5C268 /* theClientsVoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = theClientsVoiceTests.swift; sourceTree = "<group>"; };
 		73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ibmClientCenter.jpg; sourceTree = "<group>"; };
 		73A698F61A270E8000F5C268 /* ibmLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ibmLogo.jpg; sourceTree = "<group>"; };
+		73AA7CBA1A2F3C8000DC1308 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartViewController.swift; path = ../StartViewController.swift; sourceTree = "<group>"; };
+		73AA7CBE1A2F3E6300DC1308 /* QCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QCell.swift; path = ../QCell.swift; sourceTree = "<group>"; };
 		73CF025D1A2C9327006830B1 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		73D2E4F11A371D8700276556 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		73D2E4F31A3720C500276556 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		73D2E4F51A37218600276556 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		73D2E4F81A3723AF00276556 /* MainAdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAdminViewController.swift; sourceTree = "<group>"; };
+		73D2E4FA1A37344E00276556 /* AddQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddQuestionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +79,7 @@
 		73A698C41A270AC800F5C268 = {
 			isa = PBXGroup;
 			children = (
+				73D2E4F51A37218600276556 /* User.swift */,
 				73A698CF1A270AC800F5C268 /* theClientsVoice */,
 				73A698E81A270AC800F5C268 /* theClientsVoiceTests */,
 				73A698CE1A270AC800F5C268 /* Products */,
@@ -86,8 +99,11 @@
 			isa = PBXGroup;
 			children = (
 				73A698D21A270AC800F5C268 /* AppDelegate.swift */,
-				73A698D71A270AC800F5C268 /* ViewController.swift */,
-				73CF025D1A2C9327006830B1 /* Date.swift */,
+				73AA7CBA1A2F3C8000DC1308 /* StartViewController.swift */,
+				73D2E4F11A371D8700276556 /* MainViewController.swift */,
+				73D2E4F81A3723AF00276556 /* MainAdminViewController.swift */,
+				73D2E4FA1A37344E00276556 /* AddQuestionViewController.swift */,
+				73D2E4F71A37222C00276556 /* Helper Classes */,
 				73A698D91A270AC800F5C268 /* Main.storyboard */,
 				73A698DC1A270AC800F5C268 /* Images.xcassets */,
 				73A698DE1A270AC800F5C268 /* LaunchScreen.xib */,
@@ -122,6 +138,16 @@
 				73A698EA1A270AC800F5C268 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		73D2E4F71A37222C00276556 /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				73AA7CBE1A2F3E6300DC1308 /* QCell.swift */,
+				73CF025D1A2C9327006830B1 /* Date.swift */,
+				73D2E4F31A3720C500276556 /* Question.swift */,
+			);
+			name = "Helper Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,10 +253,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73A698D81A270AC800F5C268 /* ViewController.swift in Sources */,
+				73AA7CBB1A2F3C8100DC1308 /* StartViewController.swift in Sources */,
+				73D2E4F21A371D8700276556 /* MainViewController.swift in Sources */,
+				73D2E4FB1A37344E00276556 /* AddQuestionViewController.swift in Sources */,
+				73D2E4F91A3723AF00276556 /* MainAdminViewController.swift in Sources */,
+				73D2E4F41A3720C500276556 /* Question.swift in Sources */,
 				73A698D31A270AC800F5C268 /* AppDelegate.swift in Sources */,
+				73D2E4F61A37218600276556 /* User.swift in Sources */,
 				73A698D61A270AC800F5C268 /* theClientsVoice.xcdatamodeld in Sources */,
 				73CF025E1A2C9327006830B1 /* Date.swift in Sources */,
+				73AA7CBF1A2F3E6300DC1308 /* QCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
