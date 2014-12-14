@@ -14,6 +14,8 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     @IBOutlet weak var clientNameEntryTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var UserAdminBarButton: UIBarButtonItem!
+    @IBOutlet weak var QuestionAdminBarButton: UIBarButtonItem!
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
     var fechedResultsController:NSFetchedResultsController = NSFetchedResultsController()
@@ -22,10 +24,18 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if User.isAdmin() == true {
+            UserAdminBarButton.enabled = true
+            QuestionAdminBarButton.enabled = true
+        }
+        else {
+            UserAdminBarButton.enabled = false
+            QuestionAdminBarButton.enabled = false
+        }
+        
         fechedResultsController = getFetchedResultsController()
         fechedResultsController.delegate = self
         fechedResultsController.performFetch(nil)
-//        tableView.backgroundColor = UIColor.lightTextColor()
 
     }
 
@@ -35,8 +45,16 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
 
     
-    //UITableViewDataSource
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "startQuestionaireSeque" {
+            let detailVC: MainViewController = segue.destinationViewController as MainViewController
+
+            detailVC.questions = getSelectedQuestionsFromTableView()
+            
+        }
+    }
     
+    //UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return fechedResultsController.sections!.count
@@ -50,7 +68,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell") as UITableViewCell
         let theQuestion:QModel = fechedResultsController.objectAtIndexPath(indexPath) as QModel
-        
+
         cell.textLabel?.text = theQuestion.question
         cell.layer.cornerRadius = 10.0
         
@@ -63,7 +81,6 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
             cell.backgroundColor = UIColor(red: CGFloat(0.80), green: CGFloat(0.95), blue: CGFloat(0.80), alpha: CGFloat(1.0))
             
         }
-
         
         return cell
     }
@@ -81,8 +98,15 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
             
         }
         clientNameEntryTextField.resignFirstResponder()
+
     }
 
+    //Custom Button Action
+    
+    @IBAction func defaultNavBarItemButtonPressed(sender: UIBarButtonItem) {
+        tableView.reloadData()
+    }
+    
     
     // Helper
     
@@ -103,5 +127,19 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         return fechedResultsController
     }
     
+    func getSelectedQuestionsFromTableView() -> [String] {
+        let cells = tableView.visibleCells() as [UITableViewCell]
+        var selectedQuestions:[String] = []
+        for theCell in cells {
+            if theCell.accessoryType == UITableViewCellAccessoryType.Checkmark   {
+                if let textLabel = theCell.textLabel?.text! {
+                    selectedQuestions.append(textLabel)
+                }
+    
+            }
+        }
+        
+        return selectedQuestions
+    }
     
 }

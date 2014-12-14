@@ -15,7 +15,6 @@ class MainViewController: UIViewController {
         @IBOutlet weak var questionNextButton: UIBarButtonItem!
         
         @IBOutlet weak var ratingBarSegmentedControl: UISegmentedControl!
-        @IBOutlet weak var subjectTextLabel: UILabel!
         @IBOutlet weak var questionTextLabel: UILabel!
         @IBOutlet weak var questionsTitelTextLabel: UILabel!
         @IBOutlet weak var optionalCommentTextField: UITextField!
@@ -24,20 +23,19 @@ class MainViewController: UIViewController {
         @IBOutlet weak var startTextView: UITextView!
         @IBOutlet weak var startSurveyButton: UIButton!
         
-        let questions: [String] = ["What rating would you give today's workshop?", "To what extent did you learn something new or inspiring today?"]
-        
-        let subjects: [String] = ["Overall Satisfaction", "Innovation Index"]
-        let backButton = "Back"
+        var questions: [String] = []
+    
         let nextButton = ["Next", "Submit"]
         
-        let nrOfQuestions = 2
+        var nrOfQuestions = 0
         var qCount = 0
         var selectedSegmentIndex = 0
         
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            // Do any additional setup after loading the view, typically from a nib.
+println("Questions \(questions)")
+            nrOfQuestions = questions.count
             setupScreen(qCount)
         }
         
@@ -91,8 +89,8 @@ class MainViewController: UIViewController {
                 qCount = 0
                 selectedSegmentIndex = 0
                 setupScreen(qCount)
-                startSurveyButton.hidden = false
-                startTextView.hidden = false
+//                startSurveyButton.hidden = false
+//                startTextView.hidden = false
                 
             }
         }
@@ -104,10 +102,10 @@ class MainViewController: UIViewController {
             questionNextButton.title = nextButton[0]
             questionNextButtonLow.setTitle(nextButton[0], forState: UIControlState.Normal)
             if count == 0 {
-                questionBackButton.title = ""
+                questionBackButton.enabled = false
             }
             if count > 0 && count <= (nrOfQuestions-1) {
-                questionBackButton.title = backButton
+                questionBackButton.enabled = true
             }
             if count == (nrOfQuestions-1) {
                 questionNextButton.title = nextButton[1]
@@ -117,7 +115,6 @@ class MainViewController: UIViewController {
             
             optionalCommentTextField.text = ""
             ratingBarSegmentedControl.selectedSegmentIndex =  UISegmentedControlNoSegment
-            subjectTextLabel.text = subjects[count ]
             questionTextLabel.text = questions[count]
             questionsTitelTextLabel.text = "Question \(count+1) of \(nrOfQuestions)"
             

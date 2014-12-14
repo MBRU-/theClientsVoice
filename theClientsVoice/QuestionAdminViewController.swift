@@ -34,6 +34,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
         tableView.backgroundColor = UIColor.lightTextColor()
         
         questionTextField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
+//        questionTextField..clearButtonMode = UITextFieldViewMode.Always
         questionTextField.layer.cornerRadius = 10.0
         isDefaultQuestionControl.selectedSegmentIndex = 1
 
@@ -151,7 +152,6 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
     @IBAction func clearQuestionFieldsButtonPressed(sender: UIBarButtonItem) {
         
         clearIt()
-
     }
     
     
