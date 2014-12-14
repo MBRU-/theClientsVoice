@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62078DE71A3C66A700072F6B /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62078DE61A3C66A700072F6B /* PopUp.swift */; };
+		62078DE91A3C687F00072F6B /* background300.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 62078DE81A3C687F00072F6B /* background300.jpg */; };
 		730438201A39EB7600E545E0 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7304381F1A39EB7600E545E0 /* Alert.swift */; };
 		731E6A511A3B194A00BC1147 /* QModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6A501A3B194A00BC1147 /* QModel.swift */; };
 		73500CA31A3B006700C3B18F /* QuestionAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73500CA21A3B006700C3B18F /* QuestionAdminViewController.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		62078DE61A3C66A700072F6B /* PopUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
+		62078DE81A3C687F00072F6B /* background300.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background300.jpg; sourceTree = "<group>"; };
 		7304381F1A39EB7600E545E0 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		731E6A501A3B194A00BC1147 /* QModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QModel.swift; path = ../QModel.swift; sourceTree = "<group>"; };
 		73500CA21A3B006700C3B18F /* QuestionAdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionAdminViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 			children = (
 				73C47B001A3987B800E5DDDE /* CoreData.framework */,
 				73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */,
+				62078DE81A3C687F00072F6B /* background300.jpg */,
 				73A698F61A270E8000F5C268 /* ibmLogo.jpg */,
 				73A698D11A270AC800F5C268 /* Info.plist */,
 			);
@@ -146,6 +151,7 @@
 		73D2E4F71A37222C00276556 /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
+				62078DE61A3C66A700072F6B /* PopUp.swift */,
 				7304381F1A39EB7600E545E0 /* Alert.swift */,
 				731E6A501A3B194A00BC1147 /* QModel.swift */,
 				73C47B051A398F6900E5DDDE /* UserModel.swift */,
@@ -236,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73A698DB1A270AC800F5C268 /* Main.storyboard in Resources */,
+				62078DE91A3C687F00072F6B /* background300.jpg in Resources */,
 				73A698E01A270AC800F5C268 /* LaunchScreen.xib in Resources */,
 				73A698F71A270E8000F5C268 /* ibmClientCenter.jpg in Resources */,
 				73A698F81A270E8000F5C268 /* ibmLogo.jpg in Resources */,
@@ -259,6 +266,7 @@
 			files = (
 				73AA7CBB1A2F3C8100DC1308 /* StartViewController.swift in Sources */,
 				73D2E4F21A371D8700276556 /* MainViewController.swift in Sources */,
+				62078DE71A3C66A700072F6B /* PopUp.swift in Sources */,
 				73500CA31A3B006700C3B18F /* QuestionAdminViewController.swift in Sources */,
 				730438201A39EB7600E545E0 /* Alert.swift in Sources */,
 				73A698D31A270AC800F5C268 /* AppDelegate.swift in Sources */,

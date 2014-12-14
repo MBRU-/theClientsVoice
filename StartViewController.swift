@@ -25,7 +25,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         fechedResultsController = getFetchedResultsController()
         fechedResultsController.delegate = self
         fechedResultsController.performFetch(nil)
-        tableView.backgroundColor = UIColor.lightTextColor()
+//        tableView.backgroundColor = UIColor.lightTextColor()
 
     }
 
@@ -52,8 +52,18 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         let theQuestion:QModel = fechedResultsController.objectAtIndexPath(indexPath) as QModel
         
         cell.textLabel?.text = theQuestion.question
-        cell.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         cell.layer.cornerRadius = 10.0
+        
+        if theQuestion.isDefault == false {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.backgroundColor = UIColor(red: CGFloat(0.98), green: CGFloat(0.98), blue: CGFloat(0.90), alpha: CGFloat(1.0))
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.backgroundColor = UIColor(red: CGFloat(0.80), green: CGFloat(0.95), blue: CGFloat(0.80), alpha: CGFloat(1.0))
+            
+        }
+
         
         return cell
     }
@@ -63,7 +73,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         if tableView.cellForRowAtIndexPath(indexPath)?.accessoryType == UITableViewCellAccessoryType.Checkmark {
             tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-            tableView.cellForRowAtIndexPath(indexPath)?.backgroundColor = UIColor.whiteColor()
+            tableView.cellForRowAtIndexPath(indexPath)?.backgroundColor = UIColor(red: CGFloat(0.98), green: CGFloat(0.98), blue: CGFloat(0.90), alpha: CGFloat(1.0))
         }
         else {
             tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
@@ -78,7 +88,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func taskFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "QModel")
-        let sortDescriptor = NSSortDescriptor(key: "question", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
         //        let completedDescriptor = NSSortDescriptor(key: "completed", ascending: true)
         
         fetchRequest.sortDescriptors = [sortDescriptor]

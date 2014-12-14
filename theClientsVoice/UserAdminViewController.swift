@@ -78,8 +78,8 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
             isAdminUserControl.selectedSegmentIndex = 1
         }
         //        clientNameEntryTextField.resignFirstResponder()
-
         updateUserButton.hidden = false
+        hideKeyboard()
     }
     
     //NSFechedResultsControllerDelegate
@@ -149,7 +149,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                 verifyPasswordEntryField.text = ""
                 isAdminUserControl.selectedSegmentIndex = 1
                 updateUserButton.hidden = true
-
+                hideKeyboard()
             }
         }
         else {
@@ -178,7 +178,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                 verifyPasswordEntryField.text = ""
                 isAdminUserControl.selectedSegmentIndex = 1
                 updateUserButton.hidden = true
-                
+                hideKeyboard()
             }
         }
         else {
@@ -233,5 +233,13 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
+    
+    func hideKeyboard() {
+
+        userNameEntryField.resignFirstResponder()
+        passwordEntryField.resignFirstResponder()
+        verifyPasswordEntryField.resignFirstResponder()
+
+    }
     
 }
