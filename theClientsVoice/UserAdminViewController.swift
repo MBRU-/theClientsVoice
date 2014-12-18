@@ -69,6 +69,17 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     //UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var theUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
+        if theUser.userName.uppercaseString == "ADMIN" {
+            userNameEntryField.enabled = false
+            isAdminUserControl.enabled = false
+        }
+        else {
+            userNameEntryField.enabled = true
+            isAdminUserControl.enabled = true
+    
+        }
+        
+        
         userNameEntryField.text = theUser.userName
         passwordEntryField.text = theUser.password
         if theUser.isAdmin == true {
@@ -96,14 +107,21 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-            let managedObjectContext = appDelegate.managedObjectContext
-            let entityDescription = NSEntityDescription.entityForName("UserModel", inManagedObjectContext: managedObjectContext!)
-            let objectToDelete = fechedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
 
-            managedObjectContext?.deleteObject(objectToDelete)
-            println("deleted")
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let theUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
+            if theUser.userName.uppercaseString != "ADMIN" {
+                let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+                let managedObjectContext = appDelegate.managedObjectContext
+                let entityDescription = NSEntityDescription.entityForName("UserModel", inManagedObjectContext: managedObjectContext!)
+                let objectToDelete = fechedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
+                managedObjectContext?.deleteObject(objectToDelete)
+                println("deleted")
+            }
+            else {
+                tableView.reloadData()
+            }
+                
             updateUserButton.hidden = true
         }
 

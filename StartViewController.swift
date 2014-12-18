@@ -16,6 +16,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
     @IBOutlet weak var UserAdminBarButton: UIBarButtonItem!
     @IBOutlet weak var QuestionAdminBarButton: UIBarButtonItem!
+    @IBOutlet weak var commentsOnSwitch: UISwitch!
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
     var fechedResultsController:NSFetchedResultsController = NSFetchedResultsController()
@@ -23,7 +24,8 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        commentsOnSwitch.setOn(true, animated: true)
         if User.isAdmin() == true {
             UserAdminBarButton.enabled = true
             QuestionAdminBarButton.enabled = true
@@ -44,13 +46,25 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
 
-    
+    //called before transition to MainViewController
+    //this is the place to set proprties in the destination view controller e.g. clientName
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startQuestionaireSeque" {
             let detailVC: MainViewController = segue.destinationViewController as MainViewController
-
             detailVC.questions = getSelectedQuestionsFromTableView()
-            
+            if commentsOnSwitch.on == false {
+                detailVC.commentsTurnedOn = true
+            }
+            else {
+                detailVC.commentsTurnedOn = false
+            }
+            if let clientName = clientNameEntryTextField.text {
+                
+                detailVC.clientName = clientName
+            }
+            else {
+              detailVC.clientName = "Client Name"
+            }            
         }
     }
     

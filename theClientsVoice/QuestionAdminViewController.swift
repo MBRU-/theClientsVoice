@@ -18,7 +18,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
     @IBOutlet weak var isDefaultQuestionControl: UISegmentedControl!
 
     var swapState = false
-    let popUp = PopUp()
+    let modalTextpopUp = ModalTextPopUp()
     var maxIndex = 0
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
@@ -166,8 +166,8 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
             if swapState == false {
                 tableView.allowsMultipleSelection = true
                 swapState = true
-                popUp.setupContainerView(self.view)
-                popUp.setupContainerContent()
+                modalTextpopUp.setupContainerView(self.view)
+                modalTextpopUp.setupContainerContent()
                 
             }
             else {
@@ -183,7 +183,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
                     
                     (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
                     tableView.allowsMultipleSelection = false
-                    popUp.removePopUp()
+                    modalTextpopUp.removePopUp()
                     swapState = false
                     clearIt()
                 }
@@ -233,7 +233,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
         tableView.selectRowAtIndexPath( nil  , animated: true, scrollPosition: UITableViewScrollPosition.None)
         addOrUpdateButton.title = "Add"
         if swapState == true {
-            popUp.removePopUp()
+            modalTextpopUp.removePopUp()
             swapState = false
         }
 

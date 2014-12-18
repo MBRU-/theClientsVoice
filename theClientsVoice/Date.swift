@@ -10,6 +10,7 @@ import Foundation
 
 let kDateFormat = 1
 let kTimeFormat = 2
+let kDateForSortFormat = 3
 
 class Date {
 
@@ -20,6 +21,9 @@ class Date {
         }
         else if dateOrTime == kTimeFormat {
             formatString = "dd-MM-yyyy / HH.mm.ss"
+        }
+        else if dateOrTime == kDateForSortFormat {
+            formatString = "yyyyMMdd"
         }
         
         let myDate:NSDate = NSDate()

@@ -33,7 +33,23 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
         fechedResultsController.delegate = self
         fechedResultsController.performFetch(nil)
         
-
+        if fechedResultsController.sections![0].numberOfObjects == 0 {
+            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+            let managedObjectContext = appDelegate.managedObjectContext
+            let entityDescription = NSEntityDescription.entityForName("UserModel", inManagedObjectContext: managedObjectContext!)
+            
+            let myUser = UserModel(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext!)
+            myUser.userName = "Admin"
+            myUser.password =  "admin"
+            myUser.isLogedin = false
+            myUser.isAdmin = true
+            appDelegate.saveContext()
+            tableView.reloadData()
+            println("Admin should be created")
+        }
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +60,7 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
     //UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+
         return fechedResultsController.sections!.count
     }
     
@@ -91,8 +108,6 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
     }
 
     @IBAction func loginNavButtonPressed(sender: UIBarButtonItem) {
-        
-          println("Login button pressed at Nav Bar")
         if passwordCheck() == true {
             performSegueWithIdentifier("loginToStartSegue", sender: self)
         }
@@ -105,24 +120,17 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
     func taskFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "UserModel")
         let sortDescriptor = NSSortDescriptor(key: "userName", ascending: true)
-        //        let completedDescriptor = NSSortDescriptor(key: "completed", ascending: true)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
         return fetchRequest
-        
     }
     
     func getFetchedResultsController() -> NSFetchedResultsController {
-        
         fechedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         return fechedResultsController
     }
     
     func passwordCheck () -> Bool {
-        
-     println("Stored Password \(storedPassword.uppercaseString)  entered PW: \(passwordEntryField.text.uppercaseString)")
-        
         if storedPassword.uppercaseString == passwordEntryField.text.uppercaseString && !passwordEntryField.text.isEmpty{
             theUser.logIn(userName: userNameEntryField.text, password: storedPassword, isAdmin: storedIsAdmin, isLogedIn: true)
             return true
@@ -135,9 +143,7 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
     
     
     func hideKeyboard() {
-        
         userNameEntryField.resignFirstResponder()
         passwordEntryField.resignFirstResponder()
-        
     }
 }

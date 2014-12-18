@@ -1,8 +1,8 @@
 //
-//  PopUp.swift
+//  ModalTextPopUp.swift
 //  theClientsVoice
 //
-//  Created by Martin Brunner on 13.12.14.
+//  Created by Martin Brunner on 14.12.14.
 //  Copyright (c) 2014 Martin Brunner. All rights reserved.
 //
 
@@ -19,7 +19,7 @@ let kEighth:CGFloat = 1.0/8.0
 
 
 
-class PopUp {
+class ModalTextPopUp {
     var popUpContainer: UIView!
     var backgroundImage: UIImageView!
     var titleLabel: UILabel!
@@ -34,10 +34,10 @@ class PopUp {
     
     func setupContainerView (view: UIView ) {
         //      let view = theViewController.view
-
-//        popUpContainer = UIView(frame: CGRect(x: view.bounds.origin.x + kMarginForView, y: view.bounds.origin.y + 100, width: view.bounds.width - (kMarginForView * 2), height: view.bounds.height * kThird))
+        
+        //        popUpContainer = UIView(frame: CGRect(x: view.bounds.origin.x + kMarginForView, y: view.bounds.origin.y + 100, width: view.bounds.width - (kMarginForView * 2), height: view.bounds.height * kThird))
         popUpContainer = UIView(frame: CGRect(x: view.bounds.origin.x + kMarginForView, y: view.bounds.origin.y + 80,width: view.bounds.width/2, height: 40))
-            
+        
         popUpContainer.backgroundColor = UIColor.whiteColor()
         popUpContainer.opaque = true
         popUpContainer.alpha = CGFloat(0.95)
@@ -80,11 +80,12 @@ class PopUp {
         titleLabel.center = CGPoint(x: CGFloat(containerView.frame.width/2), y: CGFloat(containerView.frame.height/2))
         containerView.addSubview(titleLabel)
         
-      }
+    }
     
     func removePopUp() {
         popUpContainer.removeFromSuperview()
     }
     
 }
+
 
