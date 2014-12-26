@@ -74,7 +74,7 @@ class PrintResultsViewController: UIViewController {
         var attributedText = NSAttributedString(string:"",attributes: titleAttributes)
         var theString = NSMutableAttributedString(attributedString: attributedText)
         
-        theString.appendAttributedString(NSAttributedString(string:"IBM Client Center Research - Client Feedback - \n\n",attributes: titleAttributes))
+        theString.appendAttributedString(NSAttributedString(string:"IBM Client Center Research-Zurich - Client Feedback - \n\n",attributes: titleAttributes))
         theString.appendAttributedString(NSAttributedString(string:"Date: \t",attributes: titleAttributes))
         theString.appendAttributedString(NSAttributedString(string:date,attributes: textAttributes))
         

@@ -17,6 +17,7 @@
 		732A44031A3F07CC0047EDE8 /* PrintResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A44021A3F07CC0047EDE8 /* PrintResultsViewController.swift */; };
 		732A44051A3F094B0047EDE8 /* CSAT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A44041A3F094B0047EDE8 /* CSAT.swift */; };
 		73500CA31A3B006700C3B18F /* QuestionAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73500CA21A3B006700C3B18F /* QuestionAdminViewController.swift */; };
+		738FA6A91A44125C007AA945 /* theClientsVoice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 738FA6A81A44125C007AA945 /* theClientsVoice.jpg */; };
 		73A698D31A270AC800F5C268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A698D21A270AC800F5C268 /* AppDelegate.swift */; };
 		73A698D61A270AC800F5C268 /* theClientsVoice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 73A698D41A270AC800F5C268 /* theClientsVoice.xcdatamodeld */; };
 		73A698DB1A270AC800F5C268 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A698D91A270AC800F5C268 /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		732A44021A3F07CC0047EDE8 /* PrintResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintResultsViewController.swift; sourceTree = "<group>"; };
 		732A44041A3F094B0047EDE8 /* CSAT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAT.swift; sourceTree = "<group>"; };
 		73500CA21A3B006700C3B18F /* QuestionAdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionAdminViewController.swift; sourceTree = "<group>"; };
+		738FA6A81A44125C007AA945 /* theClientsVoice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = theClientsVoice.jpg; sourceTree = "<group>"; };
 		73A698CD1A270AC800F5C268 /* theClientsVoice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = theClientsVoice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A698D11A270AC800F5C268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73A698D21A270AC800F5C268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				73C47B001A3987B800E5DDDE /* CoreData.framework */,
 				73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */,
+				738FA6A81A44125C007AA945 /* theClientsVoice.jpg */,
 				62078DE81A3C687F00072F6B /* background300.jpg */,
 				73A698F61A270E8000F5C268 /* ibmLogo.jpg */,
 				73A698D11A270AC800F5C268 /* Info.plist */,
@@ -258,6 +261,7 @@
 			files = (
 				73A698DB1A270AC800F5C268 /* Main.storyboard in Resources */,
 				62078DE91A3C687F00072F6B /* background300.jpg in Resources */,
+				738FA6A91A44125C007AA945 /* theClientsVoice.jpg in Resources */,
 				73A698E01A270AC800F5C268 /* LaunchScreen.xib in Resources */,
 				73A698F71A270E8000F5C268 /* ibmClientCenter.jpg in Resources */,
 				73A698F81A270E8000F5C268 /* ibmLogo.jpg in Resources */,
@@ -419,6 +423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = theClientsVoice/Info.plist;
@@ -433,8 +438,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				INFOPLIST_FILE = theClientsVoice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

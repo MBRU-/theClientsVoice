@@ -64,7 +64,6 @@ class MainViewController: UIViewController {
     
     //Custom Button Actions
     
-    
     @IBAction func adminBarButtonItemPressed(sender: UIBarButtonItem) {
         popUp.show(self.view)
 

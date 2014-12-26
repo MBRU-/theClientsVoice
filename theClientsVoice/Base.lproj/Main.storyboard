@@ -619,7 +619,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyg-w2-fvI">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="IBM Client Center Research CSAT" prompt="Please enter client name and select questions you intend to ask" id="uzc-ux-Yu4">
+                                    <navigationItem title="IBM Client Center Research-Zurich CSAT" prompt="Please enter client name and select questions you intend to ask" id="uzc-ux-Yu4">
                                         <barButtonItem key="leftBarButtonItem" title="Default" id="OKg-Qb-Ngh">
                                             <connections>
                                                 <action selector="defaultNavBarItemButtonPressed:" destination="Rq3-kc-MU2" id="1Lc-wI-wI4"/>

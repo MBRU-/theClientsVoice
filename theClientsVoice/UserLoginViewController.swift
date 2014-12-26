@@ -48,6 +48,7 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
             println("Admin should be created")
         }
         
+        self.view.backgroundColor = UIColor(red: CGFloat(0.90), green: CGFloat(0.93), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         
         
     }
@@ -112,8 +113,6 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
             performSegueWithIdentifier("loginToStartSegue", sender: self)
         }
     }
-
-    
     
     // Helper
     
