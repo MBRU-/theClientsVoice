@@ -207,7 +207,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     @IBAction func clearEntryFieldsButtonPressed(sender: UIButton) {
         userNameEntryField.text = ""
         userNameEntryField.enabled = true
-
+        isAdminUserControl.enabled = true
         passwordEntryField.text = ""
         verifyPasswordEntryField.text = ""
         isAdminUserControl.selectedSegmentIndex = 1
