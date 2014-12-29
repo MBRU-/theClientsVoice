@@ -10,15 +10,18 @@ import UIKit
 import CoreData
 
 class UserLoginViewController: UIViewController , UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+
     @IBOutlet weak var userNameEntryField: UITextField!
+    
     @IBOutlet weak var passwordEntryField: UITextField!
+    
     @IBOutlet weak var tableView: UITableView!
 
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
     var fechedResultsController:NSFetchedResultsController = NSFetchedResultsController()
     var storedPassword = ""
     var storedIsAdmin = false
-    let theUser = User()    
+    let theUser = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +44,14 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
             let myUser = UserModel(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext!)
             myUser.userName = "Admin"
             myUser.password =  "admin"
-            myUser.isLogedin = false
-            myUser.isAdmin = true
+            myUser.isLogedin = NSNumber(bool: false)
+            myUser.isAdmin = NSNumber(bool: true)
             appDelegate.saveContext()
             tableView.reloadData()
             println("Admin should be created")
         }
         
         self.view.backgroundColor = UIColor(red: CGFloat(0.90), green: CGFloat(0.93), blue: CGFloat(0.95), alpha: CGFloat(0.95))
-        
         
     }
 
@@ -72,9 +74,9 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myLoginCell") as UITableViewCell
-        let theUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
+        let myUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
         
-        cell.textLabel?.text = theUser.userName
+        cell.textLabel?.text = myUser.userName
         cell.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.99), alpha: CGFloat(1.0))
         cell.layer.cornerRadius = 10.0
         
@@ -92,12 +94,18 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
     
     //UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var theUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
-        userNameEntryField.text = theUser.userName
+       let myUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
+
+        userNameEntryField.text = myUser.userName
         passwordEntryField.text = ""
         passwordEntryField.selected = true
-        storedIsAdmin = theUser.isAdmin as Bool
-        storedPassword = theUser.password
+        if myUser.isAdmin.boolValue == false {
+            storedIsAdmin = false
+        }
+        else {
+            storedIsAdmin = true
+        }
+        storedPassword = myUser.password
         hideKeyboard()
     }
     

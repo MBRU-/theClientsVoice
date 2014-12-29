@@ -34,19 +34,16 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
         tableView.backgroundColor = UIColor.lightTextColor()
         
         questionTextField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
-//        questionTextField..clearButtonMode = UITextFieldViewMode.Always
         questionTextField.layer.cornerRadius = 10.0
         isDefaultQuestionControl.selectedSegmentIndex = 1
 
         addOrUpdateButton.title = "Add"
     }
     
-    override func viewDidAppear(animated: Bool) {
-        
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        println("Memory problem")
         // Dispose of any resources that can be recreated.
     }
     
@@ -64,15 +61,15 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myAdminCell") as UITableViewCell
         let theQuestion:QModel = fechedResultsController.objectAtIndexPath(indexPath) as QModel
-        
-        if maxIndex < theQuestion.index as Int {
-            maxIndex = theQuestion.index as Int
+        if maxIndex < theQuestion.index.integerValue {
+            maxIndex = theQuestion.index.integerValue
         }
         
+
         cell.textLabel?.text = theQuestion.question
         cell.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         cell.layer.cornerRadius = 10.0
-        if theQuestion.isDefault == false {
+        if theQuestion.isDefault.boolValue == false {
             cell.accessoryType = UITableViewCellAccessoryType.None
             cell.backgroundColor = UIColor(red: CGFloat(0.98), green: CGFloat(0.98), blue: CGFloat(0.90), alpha: CGFloat(1.0))
         }
@@ -92,7 +89,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var theQuestion: QModel = fechedResultsController.objectAtIndexPath(indexPath) as QModel
         questionTextField.text = theQuestion.question
-        if theQuestion.isDefault == true {
+        if theQuestion.isDefault.boolValue == true {
             isDefaultQuestionControl.selectedSegmentIndex = 0
         }
         else {
@@ -251,12 +248,12 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
             maxIndex++
             theQuestion.index = maxIndex as Int
             theQuestion.question = questionTextField.text
-            theQuestion.isDefault = false
+            theQuestion.isDefault = NSNumber(bool: false)
             if isDefaultQuestionControl.selectedSegmentIndex == 0 {
-                theQuestion.isDefault = true
+                theQuestion.isDefault = NSNumber(bool: true)
             }
             else {
-                theQuestion.isDefault = false
+                theQuestion.isDefault = NSNumber(bool: false)
             }
             
             appDelegate.saveContext()
@@ -281,10 +278,10 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
                 
                 theQuestion.question = questionTextField.text
                 if isDefaultQuestionControl.selectedSegmentIndex == 0 {
-                    theQuestion.isDefault = true
+                    theQuestion.isDefault = NSNumber(bool: true)
                 }
                 else {
-                    theQuestion.isDefault = false
+                    theQuestion.isDefault = NSNumber(bool: false)
                 }
                 
                 (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()

@@ -371,13 +371,13 @@
                                 <exclude reference="AEE-gS-48Z"/>
                                 <exclude reference="nhk-S2-EWU"/>
                                 <exclude reference="pWJ-oY-E1b"/>
-                                <exclude reference="0TX-Qa-BWI"/>
-                                <exclude reference="aKE-ll-m7j"/>
                                 <exclude reference="U9a-BF-IQ6"/>
                                 <exclude reference="dnh-nF-dnW"/>
                                 <exclude reference="lSA-ic-ws4"/>
                                 <exclude reference="mY9-nK-VEr"/>
                                 <exclude reference="zPP-Zh-nOU"/>
+                                <exclude reference="0TX-Qa-BWI"/>
+                                <exclude reference="aKE-ll-m7j"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=regular">
@@ -424,13 +424,13 @@
                                 <include reference="AEE-gS-48Z"/>
                                 <include reference="nhk-S2-EWU"/>
                                 <include reference="pWJ-oY-E1b"/>
-                                <include reference="0TX-Qa-BWI"/>
-                                <include reference="aKE-ll-m7j"/>
                                 <exclude reference="U9a-BF-IQ6"/>
                                 <include reference="dnh-nF-dnW"/>
                                 <exclude reference="lSA-ic-ws4"/>
                                 <exclude reference="mY9-nK-VEr"/>
                                 <exclude reference="zPP-Zh-nOU"/>
+                                <include reference="0TX-Qa-BWI"/>
+                                <include reference="aKE-ll-m7j"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -1347,16 +1347,6 @@
                                     <action selector="clearEntryFieldsButtonPressed:" destination="vs7-u0-sDT" eventType="touchUpInside" id="AXx-jS-AFt"/>
                                 </connections>
                             </button>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVp-hI-Ki8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="KlD-OD-K4A"/>
-                                    <barButtonItem title="Update" id="IGs-Ni-hrY"/>
-                                    <barButtonItem width="60" style="plain" systemItem="fixedSpace" id="SNF-gU-WZT"/>
-                                    <barButtonItem title="Clear" id="Apd-AV-ih6"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="iox-0h-7JL"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1368,7 +1358,6 @@
                             <constraint firstItem="CDw-Dt-TeO" firstAttribute="top" secondItem="MJD-RJ-6JM" secondAttribute="bottom" constant="37" id="HZ1-KV-fwc"/>
                             <constraint firstItem="w3G-PL-EMH" firstAttribute="top" secondItem="hgy-lz-k3A" secondAttribute="bottom" constant="736" id="Khy-9z-K0w"/>
                             <constraint firstItem="MJD-RJ-6JM" firstAttribute="leading" secondItem="USE-HD-to8" secondAttribute="trailing" constant="144" id="Kv3-X2-VF0"/>
-                            <constraint firstItem="vVp-hI-Ki8" firstAttribute="leading" secondItem="f6T-OX-L1d" secondAttribute="leadingMargin" constant="-16" id="LJc-Vp-kgC"/>
                             <constraint firstItem="MJD-RJ-6JM" firstAttribute="top" secondItem="8RP-M7-ym1" secondAttribute="bottom" constant="35" id="O57-NC-kGc"/>
                             <constraint firstItem="S7a-Ps-Yc2" firstAttribute="leading" secondItem="f6T-OX-L1d" secondAttribute="leadingMargin" constant="49" id="ONs-lL-Wtd"/>
                             <constraint firstItem="CDw-Dt-TeO" firstAttribute="leading" secondItem="USE-HD-to8" secondAttribute="trailing" constant="51" id="QNj-71-wlI"/>
@@ -1378,7 +1367,6 @@
                             <constraint firstItem="rlo-BE-ikl" firstAttribute="top" secondItem="MJD-RJ-6JM" secondAttribute="bottom" constant="80" id="XUG-nX-Fyr"/>
                             <constraint firstItem="rlo-BE-ikl" firstAttribute="leading" secondItem="USE-HD-to8" secondAttribute="trailing" constant="126" id="YIW-fW-gY8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rlo-BE-ikl" secondAttribute="trailing" constant="74" id="YeU-GC-1sV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="vVp-hI-Ki8" secondAttribute="trailing" constant="-16" id="bRp-my-8Pk"/>
                             <constraint firstItem="hgy-lz-k3A" firstAttribute="top" secondItem="WcY-Ye-yFB" secondAttribute="bottom" id="buL-1L-oiB"/>
                             <constraint firstItem="1Yz-mc-oBr" firstAttribute="top" secondItem="WcY-Ye-yFB" secondAttribute="bottom" constant="246" id="c0b-se-MDY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hgy-lz-k3A" secondAttribute="trailing" constant="-16" id="cif-A3-Efi"/>
@@ -1388,7 +1376,6 @@
                             <constraint firstItem="w3G-PL-EMH" firstAttribute="top" secondItem="USE-HD-to8" secondAttribute="bottom" constant="179" id="hM5-dN-tIJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="e3i-GU-4b7" secondAttribute="trailing" constant="237" id="jzw-rG-KFl"/>
                             <constraint firstItem="1Yz-mc-oBr" firstAttribute="leading" secondItem="USE-HD-to8" secondAttribute="trailing" constant="51" id="myB-6q-kCB"/>
-                            <constraint firstItem="w3G-PL-EMH" firstAttribute="top" secondItem="vVp-hI-Ki8" secondAttribute="bottom" id="ngW-3J-UiA"/>
                             <constraint firstItem="USE-HD-to8" firstAttribute="top" secondItem="WcY-Ye-yFB" secondAttribute="bottom" constant="250" id="pTF-s1-wab"/>
                             <constraint firstItem="1Yz-mc-oBr" firstAttribute="leading" secondItem="USE-HD-to8" secondAttribute="trailing" constant="144" id="rND-Ji-gAw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8RP-M7-ym1" secondAttribute="trailing" constant="74" id="uGI-oN-beW"/>
@@ -1412,7 +1399,6 @@
                                 <exclude reference="e3i-GU-4b7"/>
                                 <exclude reference="CDw-Dt-TeO"/>
                                 <exclude reference="bni-W5-u5Q"/>
-                                <exclude reference="vVp-hI-Ki8"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="T6P-C6-hp3"/>
@@ -1435,7 +1421,6 @@
                                 <exclude reference="x42-1p-JVk"/>
                                 <exclude reference="Khy-9z-K0w"/>
                                 <exclude reference="hM5-dN-tIJ"/>
-                                <exclude reference="ngW-3J-UiA"/>
                                 <exclude reference="Gu3-wb-rd0"/>
                                 <exclude reference="up2-Jp-gXI"/>
                                 <exclude reference="5ed-BV-d6l"/>
@@ -1446,8 +1431,6 @@
                                 <exclude reference="buL-1L-oiB"/>
                                 <exclude reference="cif-A3-Efi"/>
                                 <exclude reference="fpJ-V8-ig1"/>
-                                <exclude reference="LJc-Vp-kgC"/>
-                                <exclude reference="bRp-my-8Pk"/>
                                 <exclude reference="BWF-lu-ckA"/>
                                 <exclude reference="VVb-ft-Hah"/>
                                 <exclude reference="jzw-rG-KFl"/>
@@ -1468,7 +1451,6 @@
                                 <include reference="e3i-GU-4b7"/>
                                 <include reference="CDw-Dt-TeO"/>
                                 <include reference="bni-W5-u5Q"/>
-                                <include reference="vVp-hI-Ki8"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="T6P-C6-hp3"/>
@@ -1491,7 +1473,6 @@
                                 <include reference="x42-1p-JVk"/>
                                 <exclude reference="Khy-9z-K0w"/>
                                 <include reference="hM5-dN-tIJ"/>
-                                <include reference="ngW-3J-UiA"/>
                                 <include reference="Gu3-wb-rd0"/>
                                 <include reference="up2-Jp-gXI"/>
                                 <include reference="5ed-BV-d6l"/>
@@ -1502,8 +1483,6 @@
                                 <include reference="buL-1L-oiB"/>
                                 <include reference="cif-A3-Efi"/>
                                 <include reference="fpJ-V8-ig1"/>
-                                <include reference="LJc-Vp-kgC"/>
-                                <include reference="bRp-my-8Pk"/>
                                 <exclude reference="BWF-lu-ckA"/>
                                 <include reference="VVb-ft-Hah"/>
                                 <include reference="jzw-rG-KFl"/>
@@ -1812,7 +1791,7 @@
         <image name="ibmLogo.jpg" width="51" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7uX-bQ-vvL"/>
+        <segue reference="Sua-D3-833"/>
         <segue reference="fjE-ng-jWq"/>
     </inferredMetricsTieBreakers>
 </document>

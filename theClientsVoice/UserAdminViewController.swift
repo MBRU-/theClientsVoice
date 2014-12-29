@@ -81,7 +81,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         
         userNameEntryField.text = theUser.userName
         passwordEntryField.text = theUser.password
-        if theUser.isAdmin == true {
+        if theUser.isAdmin.boolValue == true {
             isAdminUserControl.selectedSegmentIndex = 0
         }
         else {
@@ -139,12 +139,12 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                 let theUser = UserModel(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext!)
                 theUser.userName = userNameEntryField.text
                 theUser.password =  passwordEntryField.text
-                theUser.isLogedin = false
+                theUser.isLogedin = NSNumber(bool: false)
                 if isAdminUserControl.selectedSegmentIndex == 0 {
-                    theUser.isAdmin = true
+                    theUser.isAdmin = NSNumber(bool: true)
                 }
                 else {
-                    theUser.isAdmin = false
+                    theUser.isAdmin = NSNumber(bool: false)
                 }
                 
                 
@@ -183,10 +183,10 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                 theUser.userName = userNameEntryField.text
                 theUser.password =  passwordEntryField.text
                 if isAdminUserControl.selectedSegmentIndex == 0 {
-                    theUser.isAdmin = true
+                    theUser.isAdmin = NSNumber(bool: true)
                 }
                 else {
-                    theUser.isAdmin = false
+                    theUser.isAdmin = NSNumber(bool: false)
                 }
                 
                 appDelegate.saveContext()
@@ -206,6 +206,8 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func clearEntryFieldsButtonPressed(sender: UIButton) {
         userNameEntryField.text = ""
+        userNameEntryField.enabled = true
+
         passwordEntryField.text = ""
         verifyPasswordEntryField.text = ""
         isAdminUserControl.selectedSegmentIndex = 1

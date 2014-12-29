@@ -53,6 +53,10 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         if segue.identifier == "startQuestionaireSeque" {
             let detailVC: MainViewController = segue.destinationViewController as MainViewController
             detailVC.questions = getSelectedQuestionsFromTableView()
+            if detailVC.questions.count == 0 {
+                println("questions: \(detailVC.questions.count)")
+                detailVC.questions.append("No question selected")
+            }
             if commentsOnSwitch.on == false {
                 detailVC.commentsTurnedOn = true
             }
@@ -87,7 +91,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         cell.textLabel?.text = theQuestion.question
         cell.layer.cornerRadius = 10.0
         
-        if theQuestion.isDefault == false {
+        if theQuestion.isDefault.boolValue == false {
             cell.accessoryType = UITableViewCellAccessoryType.None
             cell.backgroundColor = UIColor(red: CGFloat(0.98), green: CGFloat(0.98), blue: CGFloat(0.90), alpha: CGFloat(1.0))
         }

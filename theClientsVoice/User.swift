@@ -10,7 +10,7 @@ import Foundation
 
 struct UserCredential {
     var userName = " noUser"
-    var password: NSString = " nil"
+    var password: String = " nil"
     var isAdmin: Bool = false
     var isLogedin: Bool = false
 }
