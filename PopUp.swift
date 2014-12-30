@@ -25,6 +25,7 @@ class PopUp {
     private var titleLabel: UILabel!
     private var okButton: UIButton!
     private var cancelButton: UIButton!
+    private var abortButton: UIButton!
     private var theViewController: UIViewController!
     var passwordTextField = UITextField()    
     
@@ -33,8 +34,6 @@ class PopUp {
     }
     
     func show (view: UIView ) {
-        //      let view = theViewController.view
-        //        popUpContainer = UIView(frame: CGRect(x: view.bounds.origin.x + kMarginForView, y: view.bounds.origin.y + 100, width: view.bounds.width - (kMarginForView * 2), height: view.bounds.height * kThird))
         bgContainer = UIView(frame: CGRect(x: 0.0 , y: 0.0, width: view.bounds.width, height: view.bounds.height))
         bgContainer.backgroundColor = UIColor.whiteColor()
         bgContainer.opaque = true
@@ -45,11 +44,9 @@ class PopUp {
         popUpContainer = UIView(frame: CGRect(x: (view.bounds.width/2)-150 , y: (view.bounds.height/2)-150, width: 300.0, height: 300.0))
         popUpContainer.backgroundColor = UIColor.whiteColor()
         popUpContainer.opaque = true
-        popUpContainer.alpha = CGFloat(0.95)
+        popUpContainer.alpha = CGFloat(0.90)
         popUpContainer.autoresizesSubviews = true
         view.addSubview(popUpContainer)
-        
-        println("popupContainer")
         setupContainerContent()
     }
     
@@ -59,8 +56,7 @@ class PopUp {
         var containerView = popUpContainer
         
         var bgImage = UIImage(named: "background300.jpg")
-        var  size = CGSizeApplyAffineTransform(bgImage!.size, CGAffineTransformMakeScale(0.5, 0.5)) // 0.5
-        size = containerView.bounds.size
+        var size = containerView.bounds.size
         
         let hasAlpha = false
         let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
@@ -73,7 +69,7 @@ class PopUp {
         backgroundImage = UIImageView(image: scaledImage)
         backgroundImage.contentMode = UIViewContentMode.ScaleToFill
         
-        backgroundImage.alpha = CGFloat(1.0)
+        backgroundImage.alpha = CGFloat(0.90)
         containerView.addSubview(backgroundImage)
         
         let titleFont = UIFont(name: "Helvetica Light", size: 12)!
@@ -96,7 +92,7 @@ class PopUp {
         
         okButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
         okButton.setTitle(" OK ", forState: UIControlState.Normal)
-        okButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        okButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         okButton.sizeToFit()
         okButton.center = CGPoint(x: CGFloat(containerView.frame.width/4), y: CGFloat(containerView.frame.height * kSixth * 4))
         okButton.addTarget(nil , action: "okButtonPressedFromPopup:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -109,6 +105,14 @@ class PopUp {
         cancelButton.center = CGPoint(x: CGFloat(containerView.frame.width/2), y: CGFloat(containerView.frame.height * kSixth * 4))
         cancelButton.addTarget(nil , action: "cancelButtonPressedFromPopup:", forControlEvents: UIControlEvents.TouchUpInside)
         containerView.addSubview(cancelButton)
+        
+        abortButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        abortButton.setTitle(" Abort ", forState: UIControlState.Normal)
+        abortButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        abortButton.sizeToFit()
+        abortButton.center = CGPoint(x: CGFloat(containerView.frame.width/1.3), y: CGFloat(containerView.frame.height * kSixth * 4))
+        abortButton.addTarget(nil , action: "abortButtonPressedFromPopup:", forControlEvents: UIControlEvents.TouchUpInside)
+        containerView.addSubview(abortButton)
         
     }
     

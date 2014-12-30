@@ -68,7 +68,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     //UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var theUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
-        if theUser.userName.uppercaseString == "ADMIN" {
+        if theUser.userName.uppercaseString == "ADMIN" {    //we don't want to change the ADMIN credentials
             userNameEntryField.enabled = false
             isAdminUserControl.enabled = false
         }
@@ -78,7 +78,6 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     
         }
         
-        
         userNameEntryField.text = theUser.userName
         passwordEntryField.text = theUser.password
         if theUser.isAdmin.boolValue == true {
@@ -87,7 +86,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         else {
             isAdminUserControl.selectedSegmentIndex = 1
         }
-        //        clientNameEntryTextField.resignFirstResponder()
+
         updateUserButton.hidden = false
         hideKeyboard()
     }
@@ -105,11 +104,9 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-
         if editingStyle == UITableViewCellEditingStyle.Delete {
             let theUser = fechedResultsController.objectAtIndexPath(indexPath) as UserModel
-            if theUser.userName.uppercaseString != "ADMIN" {
+            if theUser.userName.uppercaseString != "ADMIN" {        //ADMIN can not be deleted
                 let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
                 let managedObjectContext = appDelegate.managedObjectContext
                 let entityDescription = NSEntityDescription.entityForName("UserModel", inManagedObjectContext: managedObjectContext!)
@@ -123,7 +120,6 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                 
             updateUserButton.hidden = true
         }
-
 
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
     }
@@ -147,19 +143,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                     theUser.isAdmin = NSNumber(bool: false)
                 }
                 
-                
                 appDelegate.saveContext()
-                var request = NSFetchRequest(entityName: "UserModel")
-                
-                var error:NSError? = nil
-                var result: NSArray = managedObjectContext!.executeFetchRequest(request, error: &error)!
-                
-                if let err = error {
-                    println("error: \(error)")
-                }
-                else {
-                    println("no error")
-                }
                 
                 userNameEntryField.text = ""
                 passwordEntryField.text = ""
@@ -170,11 +154,11 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         else {
-           Alert.showAlertWithText(viewController: self, header: "Warning", message: "User Name or Password can not be left blank")
+           Alert.showAlertWithText(viewController: self, header: "Warning", message: "User Name and/or Password can not be left blank")
         }
     }
     
-    @IBAction func updateRecordButtonPredded(sender: UIButton) {
+    @IBAction func updateRecordButtonPressed(sender: UIButton) {
         if !userNameEntryField.text.isEmpty && !passwordEntryField.text.isEmpty {
             if passwordCheck() == true {
                 let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
@@ -228,12 +212,9 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     func taskFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "UserModel")
         let sortDescriptor = NSSortDescriptor(key: "userName", ascending: true)
-//        let completedDescriptor = NSSortDescriptor(key: "completed", ascending: true)
-        
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         return fetchRequest
-        
     }
     
     func getFetchedResultsController() -> NSFetchedResultsController {

@@ -11,10 +11,12 @@ import UIKit
 class PrintResultsViewController: UIViewController {
 
     @IBOutlet weak var pdfTextView: UITextView!
-    var questions: [String] = []
-    var clientName = ""
-    var allCSAT: [[CSAT]] = []
+    var questions: [String] = []        // Set by prpareForSegue within StartViewController
+    var clientName = ""                 // Set by prpareForSegue within StartViewController
+    var allCSAT: [[CSAT]] = []          // Set by prpareForSegue within StartViewController
     var comment: [String] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         printAll()
@@ -29,7 +31,8 @@ class PrintResultsViewController: UIViewController {
 
     
 //Printing related stuff
-    //prparing formated text
+    //prearing formated text. we stuff all the text into "theString = NSMutableAttributedString(attributedString: attributedText)"
+    // the container to display all text: "pdfTextView"
     func printAll() {
         let titleFont = UIFont(name: "Helvetica Bold", size: 14)!
         let textFont = UIFont(name: "Helvetica Neue", size: 12)!
@@ -66,7 +69,6 @@ class PrintResultsViewController: UIViewController {
         else {
             eval = 9.9
         }
-        
         
         let evalAverage = (NSString(format:"%.1f", eval)) + "\n\n"
         let header = "#\tEval.\t\tDate-Time"
@@ -136,7 +138,6 @@ class PrintResultsViewController: UIViewController {
             
         }
 
-
         pdfTextView.attributedText = theString
         println("Lenght of text: \(CFAttributedStringGetLength(pdfTextView.attributedText))")
         makePDF()
@@ -187,7 +188,7 @@ class PrintResultsViewController: UIViewController {
             var currentPage = 0
             var done:Bool = false
             
-            do {
+            do {        //...until one page is full
                 
                 // Mark the beginning of a new page.
                 UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, 612, 792), nil);
@@ -199,10 +200,9 @@ class PrintResultsViewController: UIViewController {
                 
                 // Render the current page and update the current range to
                 // point to the beginning of the next page.
-                
                 currentRange = renderPagewithTextRange(currentRange, frameSetter: frameSetter)
-                // If we're at the end of the text, exit the loop.
                 
+                // If we're at the end of the text, exit the loop.
                 if (currentRange.location == CFAttributedStringGetLength(pdfTextView.attributedText)) {
                     done = true
                 }

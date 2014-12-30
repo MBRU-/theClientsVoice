@@ -23,15 +23,12 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var dummyButtonForrSegue: UIButton!
     
-    var questions: [String] = []
-    var clientName = ""
+    var questions: [String] = []    // Set by prpareForSegue within StartViewController
+    var clientName = ""             // Set by prpareForSegue within StartViewController
     var csat: [CSAT] = []
     var allCSAT: [[CSAT]] = []
     var commentsTurnedOn = true
-
-
     let nextButton = ["Next", "Submit"]
-    
     var nrOfQuestions = 0
     var qCount = 0
     var selectedSegmentIndex = 0
@@ -77,10 +74,19 @@ class MainViewController: UIViewController {
 
     }
     
-    
     func cancelButtonPressedFromPopup(button: UIButton) {
         popUp.remove()
     }
+    
+    
+    func abortButtonPressedFromPopup(button: UIButton) {
+        if User.verifyPassword(popUp.passwordTextField.text) == true {
+            performSegueWithIdentifier("returnToStartSegue", sender: self)
+            popUp.remove()
+        }
+        
+    }
+
     
     @IBAction func questionBackButtonPressed(sender: UIBarButtonItem) {
         if qCount >  0 {
@@ -158,8 +164,8 @@ class MainViewController: UIViewController {
             questionNextButtonLow.setTitle(nextButton[1], forState: UIControlState.Normal)
         }
         
-        optionalCommentTextField.hidden = commentsTurnedOn
-        optionalCommentsTextLabel.hidden = commentsTurnedOn
+        optionalCommentTextField.hidden = !commentsTurnedOn
+        optionalCommentsTextLabel.hidden = !commentsTurnedOn
         
         optionalCommentTextField.text = ""
         ratingBarSegmentedControl.selectedSegmentIndex =  UISegmentedControlNoSegment

@@ -64,7 +64,6 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
         if maxIndex < theQuestion.index.integerValue {
             maxIndex = theQuestion.index.integerValue
         }
-        
 
         cell.textLabel?.text = theQuestion.question
         cell.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
@@ -78,10 +77,8 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
             cell.backgroundColor = UIColor(red: CGFloat(0.80), green: CGFloat(0.95), blue: CGFloat(0.80), alpha: CGFloat(0.95))
             
         }
-
         
         return cell
-        
     }
     
     
@@ -210,9 +207,8 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
     func taskFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "QModel")
         let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
-        
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
+
         return fetchRequest
         
     }

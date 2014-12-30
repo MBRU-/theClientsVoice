@@ -12,9 +12,7 @@ import CoreData
 class UserLoginViewController: UIViewController , UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var userNameEntryField: UITextField!
-    
     @IBOutlet weak var passwordEntryField: UITextField!
-    
     @IBOutlet weak var tableView: UITableView!
 
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
@@ -29,36 +27,32 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
         theUser.logOff()
         userNameEntryField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         passwordEntryField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
-        
         passwordEntryField.clearButtonMode = UITextFieldViewMode.Always
         
         fechedResultsController = getFetchedResultsController()
         fechedResultsController.delegate = self
         fechedResultsController.performFetch(nil)
         
-        if fechedResultsController.sections![0].numberOfObjects == 0 {
-            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-            let managedObjectContext = appDelegate.managedObjectContext
-            let entityDescription = NSEntityDescription.entityForName("UserModel", inManagedObjectContext: managedObjectContext!)
-            
-            let myUser = UserModel(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext!)
-            myUser.userName = "Admin"
-            myUser.password =  "admin"
-            myUser.isLogedin = NSNumber(bool: false)
-            myUser.isAdmin = NSNumber(bool: true)
-            appDelegate.saveContext()
-            tableView.reloadData()
-            println("Admin should be created")
-        }
-        
         self.view.backgroundColor = UIColor(red: CGFloat(0.90), green: CGFloat(0.93), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //Segue control
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if identifier == "loginToStartSegue" || identifier == "loginToStartSegue1" {
+            //perform segue to startViewController if password check is successful
+            return passwordCheck()
+  
+        }else {
+            return false
+        }
+    }
+    
     
     //UITableViewDataSource
     
@@ -109,20 +103,7 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
         hideKeyboard()
     }
     
-    @IBAction func loginButtonPressed(sender: UIButton) {
-   println("Login button pressed")
-        if passwordCheck() == true {
-            performSegueWithIdentifier("loginToStartSegue", sender: self)
-        }
-    }
-
-    @IBAction func loginNavButtonPressed(sender: UIBarButtonItem) {
-        if passwordCheck() == true {
-            performSegueWithIdentifier("loginToStartSegue", sender: self)
-        }
-    }
-    
-    // Helper
+    // Helpers
     
     func taskFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "UserModel")

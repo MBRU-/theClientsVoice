@@ -18,8 +18,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // here we check if at lease onr record exists in the database, if not we create an Admin user for free
+        let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        let managedObjectContext = appDelegate.managedObjectContext!
+        var fechedResultsController:NSFetchedResultsController = NSFetchedResultsController()
+        
+        func taskFetchRequest() -> NSFetchRequest {
+            let fetchRequest = NSFetchRequest(entityName: "UserModel")
+            let sortDescriptor = NSSortDescriptor(key: "userName", ascending: true)
+            
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            return fetchRequest
+        }
+        
+        fechedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fechedResultsController.performFetch(nil)
+        
+        if fechedResultsController.sections![0].numberOfObjects == 0 {
+            let entityDescription = NSEntityDescription.entityForName("UserModel", inManagedObjectContext: managedObjectContext)
+            let myUser = UserModel(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+            myUser.userName = "Admin"
+            myUser.password =  "admin"
+            myUser.isLogedin = NSNumber(bool: false)
+            myUser.isAdmin = NSNumber(bool: true)
+            appDelegate.saveContext()
+            println("Admin has been created")
+        }
         return true
     }
+    
+    
+    
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

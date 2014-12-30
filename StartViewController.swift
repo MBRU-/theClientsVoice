@@ -27,14 +27,9 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         
         commentsOnSwitch.setOn(true, animated: true)
-        if User.isAdmin() == true {
-            UserAdminBarButton.enabled = true
-            QuestionAdminBarButton.enabled = true
-        }
-        else {
-            UserAdminBarButton.enabled = false
-            QuestionAdminBarButton.enabled = false
-        }
+
+        UserAdminBarButton.enabled = User.isAdmin()
+        QuestionAdminBarButton.enabled = User.isAdmin()
         
         fechedResultsController = getFetchedResultsController()
         fechedResultsController.delegate = self
@@ -53,24 +48,29 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         if segue.identifier == "startQuestionaireSeque" {
             let detailVC: MainViewController = segue.destinationViewController as MainViewController
             detailVC.questions = getSelectedQuestionsFromTableView()
-            if detailVC.questions.count == 0 {
-                println("questions: \(detailVC.questions.count)")
-                detailVC.questions.append("No question selected")
-            }
-            if commentsOnSwitch.on == false {
-                detailVC.commentsTurnedOn = true
+            detailVC.commentsTurnedOn = commentsOnSwitch.on
+            if clientNameEntryTextField.text.isEmpty {
+                detailVC.clientName = "Unknown Client Name"
             }
             else {
-                detailVC.commentsTurnedOn = false
+                detailVC.clientName = clientNameEntryTextField.text
             }
-            if let clientName = clientNameEntryTextField.text {
-                
-                detailVC.clientName = clientName
-            }
-            else {
-              detailVC.clientName = "Client Name"
-            }            
         }
+    }
+    
+    // Segue control
+    // before we start to segue to mainVievController we need to have at least one question selected
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if identifier == "startQuestionaireSeque" {
+            if getSelectedQuestionsFromTableView().count == 0 {
+                Alert.showAlertWithText(viewController: self, header: "Alert", message: "Please select at least one question.")
+                return false
+            }
+            else {
+                return true
+            }
+          }
+        return true
     }
     
     //UITableViewDataSource
@@ -132,12 +132,8 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func taskFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "QModel")
         let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
-        //        let completedDescriptor = NSSortDescriptor(key: "completed", ascending: true)
-        
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
         return fetchRequest
-        
     }
     
     func getFetchedResultsController() -> NSFetchedResultsController {
@@ -146,6 +142,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
         return fechedResultsController
     }
     
+    //remark: this only works as long as all selected questions are visible in the view
     func getSelectedQuestionsFromTableView() -> [String] {
         let cells = tableView.visibleCells() as [UITableViewCell]
         var selectedQuestions:[String] = []
