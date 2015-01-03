@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var questionBackButton: UIBarButtonItem!
     @IBOutlet weak var questionNextButton: UIBarButtonItem!
@@ -41,6 +41,7 @@ class MainViewController: UIViewController {
         nrOfQuestions = questions.count
         prepareCsat()
         setupScreen(qCount)
+        optionalCommentTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,6 +58,19 @@ class MainViewController: UIViewController {
             
         }
     }
+    
+    //Mark - UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == optionalCommentTextField {
+            optionalCommentTextField.resignFirstResponder()
+            println("KB should dismiss")
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
     
     
     //Custom Button Actions

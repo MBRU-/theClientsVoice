@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class UserLoginViewController: UIViewController , UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class UserLoginViewController: UIViewController , UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var userNameEntryField: UITextField!
     @IBOutlet weak var passwordEntryField: UITextField!
@@ -28,6 +28,7 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
         userNameEntryField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         passwordEntryField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         passwordEntryField.clearButtonMode = UITextFieldViewMode.Always
+        passwordEntryField.delegate = self
         
         fechedResultsController = getFetchedResultsController()
         fechedResultsController.delegate = self
@@ -49,6 +50,19 @@ class UserLoginViewController: UIViewController , UITableViewDataSource, UITable
             return passwordCheck()
   
         }else {
+            return false
+        }
+    }
+    
+    //Mark - UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == passwordEntryField && passwordCheck() {
+            passwordEntryField.resignFirstResponder()
+            performSegueWithIdentifier("loginToStartSegue1", sender: nil)
+            println("KB should dismiss")
+            return true
+        }
+        else {
             return false
         }
     }

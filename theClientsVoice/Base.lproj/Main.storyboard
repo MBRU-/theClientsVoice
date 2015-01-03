@@ -45,8 +45,7 @@
                                 <variation key="widthClass=regular" misplaced="YES">
                                     <rect key="frame" x="105" y="296" width="558" height="21"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="105" y="214" width="423" height="70"/>
+                                <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
                                         <include reference="SfW-AZ-2eF"/>
                                     </mask>
@@ -101,9 +100,6 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="ibmLogo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="RR1-mk-ws9">
                                 <rect key="frame" x="520" y="551" width="64" height="34"/>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="533" y="80" width="51" height="19"/>
-                                </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="10 = all expectations met" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUS-bK-skX">
                                 <rect key="frame" x="423" y="321" width="143" height="21"/>
@@ -123,8 +119,7 @@
                                 <variation key="widthClass=regular" misplaced="YES">
                                     <rect key="frame" x="497" y="389" width="143" height="21"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="321" y="340" width="119" height="12"/>
+                                <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
                                         <include reference="f7h-K6-6wt"/>
                                         <include reference="ndI-ZO-yHR"/>
@@ -148,9 +143,6 @@
                                 <variation key="widthClass=regular" misplaced="YES">
                                     <rect key="frame" x="105" y="353" width="535" height="29"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="105" y="304" width="335" height="29"/>
-                                </variation>
                                 <connections>
                                     <action selector="ratingBarPressed:" destination="BYZ-38-t0r" eventType="valueChanged" id="bZz-pW-wks"/>
                                 </connections>
@@ -163,7 +155,7 @@
                                     </constraint>
                                 </constraints>
                                 <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Yn1-xe-Wbo"/>
@@ -1044,7 +1036,7 @@
                                     <constraint firstAttribute="height" constant="40" id="pPk-kC-zTA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="UrI-mv-oDm"/>
@@ -1577,7 +1569,7 @@
                                     <navigationItem title="Questions Admin" id="ZAj-JT-KFS">
                                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="BtC-Ls-oZ5">
                                             <connections>
-                                                <segue destination="Rq3-kc-MU2" kind="presentation" id="Sua-D3-833"/>
+                                                <action selector="doneButtonPressed:" destination="sDj-eL-kvN" id="SWy-zd-IHF"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Add" id="aag-Iy-Gbm">
@@ -1847,7 +1839,7 @@
         <image name="ibmLogo.jpg" width="51" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fjE-ng-jWq"/>
         <segue reference="fuf-wn-hhb"/>
+        <segue reference="fjE-ng-jWq"/>
     </inferredMetricsTieBreakers>
 </document>

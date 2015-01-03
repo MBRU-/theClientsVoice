@@ -40,7 +40,6 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
         addOrUpdateButton.title = "Add"
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         println("Memory problem")
@@ -149,7 +148,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
     }
     
     
-    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func doneButtonPressed(sender: UIBarButtonItem)  {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -268,7 +267,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
     
     func updateRecord() {
         if !questionTextField.text.isEmpty {
-            
+            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let theQuestion: QModel = fechedResultsController.objectAtIndexPath(indexPath) as QModel
                 
@@ -285,6 +284,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
                 questionTextField.text = ""
                 questionTextField.resignFirstResponder()
                 isDefaultQuestionControl.selectedSegmentIndex = 1
+                appDelegate.saveContext()
             }
             else {
                 println("ooops")

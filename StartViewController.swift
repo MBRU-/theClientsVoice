@@ -10,7 +10,7 @@
 import UIKit
 import CoreData
 
-class StartViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class StartViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
     
     @IBOutlet weak var clientNameEntryTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
@@ -30,12 +30,16 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
         UserAdminBarButton.enabled = User.isAdmin()
         QuestionAdminBarButton.enabled = User.isAdmin()
-        
         fechedResultsController = getFetchedResultsController()
         fechedResultsController.delegate = self
-        fechedResultsController.performFetch(nil)
-
+        clientNameEntryTextField.delegate = self
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        fechedResultsController.performFetch(nil)
+        tableView.reloadData()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -72,6 +76,20 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
           }
         return true
     }
+    
+    
+    //Mark - UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == clientNameEntryTextField  {
+            clientNameEntryTextField.resignFirstResponder()
+            println("KB should dismiss")
+            return true
+        }
+        else {
+            return false
+        }
+    }
+   
     
     //UITableViewDataSource
     
