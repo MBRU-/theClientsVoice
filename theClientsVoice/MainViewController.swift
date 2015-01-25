@@ -12,16 +12,18 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var questionBackButton: UIBarButtonItem!
     @IBOutlet weak var questionNextButton: UIBarButtonItem!
+    @IBOutlet weak var questionNextButtonLow: UIButton!
+    
+    @IBOutlet weak var clientNameTextLabel: UILabel!
+    @IBOutlet weak var questionsTitelTextLabel: UILabel!
+    @IBOutlet weak var questionTextLabel: UILabel!
     
     @IBOutlet weak var ratingBarSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var questionTextLabel: UILabel!
-    @IBOutlet weak var questionsTitelTextLabel: UILabel!
+    
     @IBOutlet weak var optionalCommentTextField: UITextField!
-    @IBOutlet weak var questionNextButtonLow: UIButton!
-    @IBOutlet weak var clientNameTextLabel: UILabel!
     @IBOutlet weak var optionalCommentsTextLabel: UILabel!
     
-    @IBOutlet weak var dummyButtonForrSegue: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var questions: [String] = []    // Set by prpareForSegue within StartViewController
     var clientName = ""             // Set by prpareForSegue within StartViewController
@@ -36,17 +38,33 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         clientNameTextLabel.text = clientName
         nrOfQuestions = questions.count
         prepareCsat()
         setupScreen(qCount)
         optionalCommentTextField.delegate = self
+        
+        println("Register KB")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardPresented:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardRemoved:", name: UIKeyboardDidHideNotification, object: nil)
+        
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        scrollView.bounds.size = self.view.bounds.size
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        println("Deregistering!")
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidHideNotification, object: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -63,29 +81,67 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == optionalCommentTextField {
             optionalCommentTextField.resignFirstResponder()
-            println("KB should dismiss")
             return true
         }
         else {
             return false
         }
     }
-
+    
+    
+    //Mark - Keyboard Notification handler
+    func keyboardPresented(notification: NSNotification) {
+        
+        var info: Dictionary = notification.userInfo!
+        var keyboardSize: CGSize = (info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size)!
+        var viewOrigin: CGPoint = self.optionalCommentTextField.frame.origin
+        var viewHeight: CGFloat = self.optionalCommentTextField.frame.size.height
+        var visibleRect: CGRect = self.scrollView.frame
+        visibleRect.size.height -= keyboardSize.height
+        
+        let popupResponse = popUp.isPopupPresent()
+        if popupResponse.isPresent {
+            viewOrigin = popupResponse.view!.frame.origin
+            viewHeight = popupResponse.view!.frame.size.height
+            viewOrigin.y += viewHeight
+            
+            if (!CGRectContainsPoint(visibleRect, viewOrigin)) {
+                let newY = ( (visibleRect.origin.y + visibleRect.size.height) - viewHeight)
+                popUp.moveFrameUp(newY / 1.2 )
+            }
+        }
+        else {
+            viewOrigin = self.optionalCommentTextField.frame.origin
+            viewHeight = self.optionalCommentTextField.frame.size.height
+            
+            if (!CGRectContainsPoint(visibleRect, viewOrigin)) {
+                var scrollPoint: CGPoint = CGPointMake(0.0, viewOrigin.y - visibleRect.size.height + viewHeight + 4)
+                self.scrollView.setContentOffset(scrollPoint, animated: true)
+                
+            }
+            
+        }
+    }
+    
+    func keyboardRemoved(notification: NSNotification) {
+        self.scrollView.setContentOffset(CGPointZero, animated: true)
+        
+    }
     
     
     //Custom Button Actions
     
     @IBAction func adminBarButtonItemPressed(sender: UIBarButtonItem) {
         popUp.show(self.view)
-
+        
     }
     
     func okButtonPressedFromPopup(button: UIButton) {
-        if User.verifyPassword(popUp.passwordTextField.text) == true {
+        if User.verifyPassword(popUp.password()) == true {
             performSegueWithIdentifier("printResultsSegue", sender: self)
             popUp.remove()
         }
-
+        
     }
     
     func cancelButtonPressedFromPopup(button: UIButton) {
@@ -94,13 +150,13 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     
     func abortButtonPressedFromPopup(button: UIButton) {
-        if User.verifyPassword(popUp.passwordTextField.text) == true {
+        if User.verifyPassword(popUp.password()) == true {
             performSegueWithIdentifier("returnToStartSegue", sender: self)
             popUp.remove()
         }
         
     }
-
+    
     
     @IBAction func questionBackButtonPressed(sender: UIBarButtonItem) {
         if qCount >  0 {
@@ -110,7 +166,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             optionalCommentTextField.text = csat[qCount].comment
             selectedSegmentIndex = csat[qCount].rating
             questionNextButtonLow.hidden = false
-
+            
         }
     }
     
@@ -133,7 +189,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     // Helper Functions
     
     func nextButtonPressed() {
-
         optionalCommentTextField.resignFirstResponder()
         if selectedSegmentIndex == 0 {
             Alert.showAlertWithText(viewController: self, header: "Alert", message: "Please rate between 1 ... 10 first.")
@@ -146,11 +201,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             selectedSegmentIndex = 0
             
         }  else if qCount >= nrOfQuestions-1 {
-
+            
             csat[qCount].rating = selectedSegmentIndex
             csat[qCount].comment = optionalCommentTextField.text
             csat[qCount].timeStamp = Date.toString(dateOrTime: kTimeFormat)
- 
+            
             allCSAT.append(csat)
             prepareCsat()
             Alert.showAlertWithText(viewController: self, header: "Thank you!", message: "Have a save return.")
@@ -189,16 +244,16 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         optionalCommentTextField.resignFirstResponder()
         
     }
-
-  
+    
+    
     //Initialize array with with instances of CSAT structure
     func prepareCsat() {
         csat = []
         var cs:CSAT = CSAT()
         for i in questions {
-        csat.append(cs)
+            csat.append(cs)
         }
-    
+        
     }
 }
 

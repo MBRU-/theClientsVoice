@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 
-class PopUp {
+class PopUp: UIViewController, UITextFieldDelegate {
     private let kMarginForView: CGFloat = 60.0
     private let kMarginForSlot:CGFloat = 2.0
     private let kSixth:CGFloat = 1.0/6.0
@@ -26,12 +26,9 @@ class PopUp {
     private var okButton: UIButton!
     private var cancelButton: UIButton!
     private var abortButton: UIButton!
-    private var theViewController: UIViewController!
-    var passwordTextField = UITextField()    
+    private var passwordTextField = UITextField()
+    private var isPopUpPresent = false
     
-    init() {
-        
-    }
     
     func show (view: UIView ) {
         bgContainer = UIView(frame: CGRect(x: 0.0 , y: 0.0, width: view.bounds.width, height: view.bounds.height))
@@ -48,6 +45,7 @@ class PopUp {
         popUpContainer.autoresizesSubviews = true
         view.addSubview(popUpContainer)
         setupContainerContent()
+        isPopUpPresent = true
     }
     
     
@@ -84,7 +82,11 @@ class PopUp {
         
         
         passwordTextField = UITextField(frame: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat( containerView.frame.width * 0.8), height: CGFloat(30)))
+        passwordTextField.delegate = self
         passwordTextField.text = ""
+        passwordTextField.keyboardType = UIKeyboardType.ASCIICapable
+        passwordTextField.enablesReturnKeyAutomatically = true
+        passwordTextField.returnKeyType = UIReturnKeyType.Done
         passwordTextField.secureTextEntry = true
         passwordTextField.center = CGPoint(x: CGFloat(containerView.frame.width/2), y: CGFloat(containerView.frame.height * kSixth * 2.5))
         passwordTextField.borderStyle = UITextBorderStyle.RoundedRect
@@ -116,11 +118,37 @@ class PopUp {
         
     }
     
+    func isPopupPresent() -> (isPresent: Bool, view: UIView? ) {
+        return (self.isPopUpPresent, popUpContainer)
+    }
+    
+    func moveFrameUp(newY: CGFloat) {
+        popUpContainer.frame.origin.y = newY
+
+    }
+    
+    func password() -> String {
+            return passwordTextField.text.uppercaseString
+    }
     
     func remove() {
+        isPopUpPresent = false
         bgContainer.removeFromSuperview()
         popUpContainer.removeFromSuperview()
     }
+    
+    //Mark - UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == passwordTextField {
+            passwordTextField.resignFirstResponder()
+            println("KB should dismiss from PopUp")
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     
 }
 
