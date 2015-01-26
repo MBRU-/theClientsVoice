@@ -208,7 +208,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             allCSAT.append(csat)
             prepareCsat()
-            Alert.showAlertWithText(viewController: self, header: "Thank you!", message: "Have a save return.")
+            Alert.showAlertWithText(viewController: self, header: "Thank you!", message: "Have a safe return.")
             qCount = 0
             selectedSegmentIndex = 0
             setupScreen(qCount)
