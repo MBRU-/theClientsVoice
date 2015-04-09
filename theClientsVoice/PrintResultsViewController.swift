@@ -7,30 +7,35 @@
 //
 
 import UIKit
+import MessageUI
 
-class PrintResultsViewController: UIViewController {
-
+class PrintResultsViewController: UIViewController, MFMailComposeViewControllerDelegate {
+    
     @IBOutlet weak var pdfTextView: UITextView!
     var questions: [String] = []        // Set by prpareForSegue within StartViewController
     var clientName = ""                 // Set by prpareForSegue within StartViewController
     var allCSAT: [[CSAT]] = []          // Set by prpareForSegue within StartViewController
     var comment: [String] = []
+    var theFileName = ""
+    var theRealFileName = ""
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         printAll()
-        // Do any additional setup after loading the view.
+        if NSUserDefaults.standardUserDefaults().boolForKey(kCenterAdminEmailYesNo) {
+            sendEmail()
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
     
-//Printing related stuff
+    
+    //Printing related stuff
     //prearing formated text. we stuff all the text into "theString = NSMutableAttributedString(attributedString: attributedText)"
     // the container to display all text: "pdfTextView"
     func printAll() {
@@ -46,11 +51,18 @@ class PrintResultsViewController: UIViewController {
         
         var textAttributes = [NSFontAttributeName:textFont,NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: textParagraph]
         
-        let title = "IBM Client Center Research - Client Feedback - \n\n"
+        var title = ""
+        if let txt = NSUserDefaults.standardUserDefaults().objectForKey(kClientCenterTitelKey) as? String {
+            title = txt + " - Client Feedback - \n\n"
+        }
+        else {
+            title = "Client Center - Client Feedback - \n\n"
+        }
+        
         let date =  Date.toString(dateOrTime: kDateFormat)  + "\n\n"
         let client = "\(clientName)\n\n"
         let eventMgr = "\(User.credentials().userName)\n\n"
-
+        
         var ratingSum = 0.0
         var ratingCount = 0.0
         for all in allCSAT {
@@ -64,7 +76,7 @@ class PrintResultsViewController: UIViewController {
             eval = Double (ratingSum / ratingCount)
             println("Values: \(ratingSum)  \(ratingCount)  \(eval)")
             println(NSString(format:"%.1f", eval))
-
+            
         }
         else {
             eval = 9.9
@@ -76,7 +88,7 @@ class PrintResultsViewController: UIViewController {
         var attributedText = NSAttributedString(string:"",attributes: titleAttributes)
         var theString = NSMutableAttributedString(attributedString: attributedText)
         
-        theString.appendAttributedString(NSAttributedString(string:"IBM Client Center Research-Zurich - Client Feedback - \n\n",attributes: titleAttributes))
+        theString.appendAttributedString(NSAttributedString(string:title, attributes: titleAttributes))
         theString.appendAttributedString(NSAttributedString(string:"Date: \t",attributes: titleAttributes))
         theString.appendAttributedString(NSAttributedString(string:date,attributes: textAttributes))
         
@@ -90,7 +102,7 @@ class PrintResultsViewController: UIViewController {
         theString.appendAttributedString(NSAttributedString(string:evalAverage,attributes: textAttributes))
         
         theString.appendAttributedString(NSAttributedString(string:"#\tEval.\t\tDate-Time",attributes: titleAttributes))
-
+        
         // Preparing for comments
         prepareComments()
         
@@ -137,12 +149,12 @@ class PrintResultsViewController: UIViewController {
             theString.appendAttributedString(subString)
             
         }
-
+        
         pdfTextView.attributedText = theString
         println("Lenght of text: \(CFAttributedStringGetLength(pdfTextView.attributedText))")
         makePDF()
     }
-
+    
     func makePDF() -> Bool {
         let resultDir = "/Results"
         var isDirectory = false as ObjCBool
@@ -151,23 +163,25 @@ class PrintResultsViewController: UIViewController {
         println("Path: \(path)")
         
         var outputFileName = "\(resultDir)/\(Date.toString(dateOrTime: kDateForSortFormat))_\(clientName).pdf"
+        theRealFileName = "\(Date.toString(dateOrTime: kDateForSortFormat))_\(clientName).pdf"
         
         let docDirectory: AnyObject = path[0]
         let filePath = docDirectory.stringByAppendingPathComponent(outputFileName)
         println("FilePath: \(filePath)")
+        theFileName = filePath
         
         let fManager = NSFileManager.defaultManager()
         
         if fManager.fileExistsAtPath(resultDir, isDirectory: &isDirectory) == false{
             if isDirectory {
-
+                
             }
             else {
                 fManager.createDirectoryAtPath("\(path[0])\(resultDir)", withIntermediateDirectories: true, attributes: nil, error: nil)
             }
-
+            
         }
-
+        
         if  fManager.createFileAtPath(filePath, contents: nil, attributes: nil)  {
             println("Success")
         }
@@ -176,9 +190,7 @@ class PrintResultsViewController: UIViewController {
             return false
         }
         
-        //        var frameSetter = CTFramesetterCreateWithAttributedString(myString)
         var frameSetter = CTFramesetterCreateWithAttributedString(pdfTextView.attributedText)
-        
         if (frameSetter != nil)   {
             
             // Create the PDF context using the default page size of 612 x 792.
@@ -212,7 +224,10 @@ class PrintResultsViewController: UIViewController {
             
             // Close the PDF context and write the contents out.
             UIGraphicsEndPDFContext();
-            // Release the framewetter.
+            
+            //            fManager.removeItemAtPath(theFileName, error: nil)
+            
+            // Release the framesetter.
         } //end if
         else {
             println("FrameSetter didnt work")
@@ -270,8 +285,47 @@ class PrintResultsViewController: UIViewController {
         
         pageString.drawInRect(stringRect, withAttributes: attributes)
     }
-
     
+    //Mark setting up an eMail and attaching produced file
+    func sendEmail() {
+        let mailComposeViewController = configuredMailComposeViewController()
+        
+        if MFMailComposeViewController.canSendMail()
+        {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        }
+        else
+        {
+            self.showSendMailErrorAlert()
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey(kCenterAdminEmailKey) as? String {
+            mailComposerVC.setToRecipients([str])
+        }
+        else {
+            mailComposerVC.setToRecipients(["invald eMail address"])
+        }
+        let clientText = "Client Feedback from <\(clientName)  \(Date.toString(dateOrTime: kDateFormat))>"
+        mailComposerVC.setSubject(clientText)
+        mailComposerVC.addAttachmentData(NSData.dataWithContentsOfMappedFile(theFileName) as NSData, mimeType: "application/pdf", fileName: theRealFileName)
+        mailComposerVC.setMessageBody("Sending \(clientText)", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     
     //Helper Functions
@@ -291,7 +345,7 @@ class PrintResultsViewController: UIViewController {
             return 1.0
         }
     }
-
+    
     func prepareComments() {
         comment = []
         var cs:String = ""
@@ -300,5 +354,5 @@ class PrintResultsViewController: UIViewController {
         }
         
     }
-
+    
 }

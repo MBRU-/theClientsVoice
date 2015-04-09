@@ -8,20 +8,42 @@
 import UIKit
 import CoreData
 
-class UserAdminViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class UserAdminViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UITextFieldDelegate  {
+    let kAdd = "Add"
+    let kUpdate = "Update"
+    
     @IBOutlet weak var tableView: UITableView!
-
+    
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var clientCenterNameTextField: UITextField!
     @IBOutlet weak var userNameEntryField: UITextField!
     @IBOutlet weak var passwordEntryField: UITextField!
     @IBOutlet weak var verifyPasswordEntryField: UITextField!
     @IBOutlet weak var isAdminUserControl: UISegmentedControl!
-    @IBOutlet weak var updateUserButton: UIButton!
+    @IBOutlet weak var appVersionLabel: UILabel!
+    @IBOutlet weak var centerAdminEmailEntryField: UITextField!
+    @IBOutlet weak var centerAdminEmailSendYesNo: UISegmentedControl!
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
     var fechedResultsController:NSFetchedResultsController = NSFetchedResultsController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let txt = NSUserDefaults.standardUserDefaults().objectForKey(kClientCenterTitelKey) as? String {
+            clientCenterNameTextField.text = txt
+        }
+        else {
+            clientCenterNameTextField.text = "Client Center"
+            
+        }
+        if let txt = NSUserDefaults.standardUserDefaults().objectForKey(kCenterAdminEmailKey) as? String {
+            centerAdminEmailEntryField.text = txt
+        }
+        else {
+            centerAdminEmailEntryField.text = "no valid email"
+        }
+        centerAdminEmailSendYesNo.selectedSegmentIndex = NSUserDefaults.standardUserDefaults().boolForKey(kCenterAdminEmailYesNo) ? 0 : 1
         
         userNameEntryField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
         passwordEntryField.backgroundColor = UIColor(red: CGFloat(0.95), green: CGFloat(0.95), blue: CGFloat(0.95), alpha: CGFloat(0.95))
@@ -32,10 +54,16 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         fechedResultsController.performFetch(nil)
         tableView.backgroundColor = UIColor.lightTextColor()
         isAdminUserControl.selectedSegmentIndex = 1
-        updateUserButton.hidden = true
+        addButton.enabled = true
+        appVersionLabel.text = kAppVersion
+        clientCenterNameTextField.delegate = self
+        userNameEntryField.delegate = self
+        passwordEntryField.delegate = self
+        verifyPasswordEntryField.delegate = self
+        centerAdminEmailEntryField.delegate = self
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -48,8 +76,8 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-  
-            return fechedResultsController.sections![section].numberOfObjects
+        
+        return fechedResultsController.sections![section].numberOfObjects
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -61,7 +89,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         cell.layer.cornerRadius = 10.0
         
         return cell
-
+        
     }
     
     
@@ -75,7 +103,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         else {
             userNameEntryField.enabled = true
             isAdminUserControl.enabled = true
-    
+            
         }
         
         userNameEntryField.text = theUser.userName
@@ -86,10 +114,17 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         else {
             isAdminUserControl.selectedSegmentIndex = 1
         }
-
-        updateUserButton.hidden = false
+        
+        addButton.title = kUpdate
         hideKeyboard()
     }
+    
+    //Mark - UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
     //NSFechedResultsControllerDelegate
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
@@ -98,8 +133,8 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     
     
     func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
-       
-            return "Delete?"
+        
+        return "Delete?"
     }
     
     
@@ -117,15 +152,14 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
             else {
                 tableView.reloadData()
             }
-                
-            updateUserButton.hidden = true
+            
+            addButton.title = kAdd
         }
-
+        
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
     }
     
-    @IBAction func addUserButtonPressed(sender: UIBarButtonItem) {
-        
+    func addRecord() {
         if !userNameEntryField.text.isEmpty && !passwordEntryField.text.isEmpty {
             if passwordCheck() == true {
                 let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
@@ -144,21 +178,21 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                 }
                 
                 appDelegate.saveContext()
-                
                 userNameEntryField.text = ""
                 passwordEntryField.text = ""
                 verifyPasswordEntryField.text = ""
                 isAdminUserControl.selectedSegmentIndex = 1
-                updateUserButton.hidden = true
+                addButton.title = kAdd
                 hideKeyboard()
             }
         }
         else {
-           Alert.showAlertWithText(viewController: self, header: "Warning", message: "User Name and/or Password can not be left blank")
+            Alert.showAlertWithText(viewController: self, header: "Warning", message: "User Name and/or Password can not be left blank")
         }
     }
     
-    @IBAction func updateRecordButtonPressed(sender: UIButton) {
+    
+    func updateRecord() {
         if !userNameEntryField.text.isEmpty && !passwordEntryField.text.isEmpty {
             if passwordCheck() == true {
                 let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
@@ -178,7 +212,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
                 passwordEntryField.text = ""
                 verifyPasswordEntryField.text = ""
                 isAdminUserControl.selectedSegmentIndex = 1
-                updateUserButton.hidden = true
+                addButton.title = kAdd
                 hideKeyboard()
             }
         }
@@ -188,6 +222,17 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
+    
+    @IBAction func addUserButtonPressed(sender: UIBarButtonItem) {
+        if sender.title == kAdd {
+            addRecord()
+        }
+        else if sender.title == kUpdate {
+            updateRecord()
+            
+        }
+    }
+    
     @IBAction func clearEntryFieldsButtonPressed(sender: UIButton) {
         userNameEntryField.text = ""
         userNameEntryField.enabled = true
@@ -195,19 +240,30 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         passwordEntryField.text = ""
         verifyPasswordEntryField.text = ""
         isAdminUserControl.selectedSegmentIndex = 1
-        updateUserButton.hidden = true
+        addButton.title = kAdd
         tableView.selectRowAtIndexPath( nil  , animated: true, scrollPosition: UITableViewScrollPosition.None)
-
+        
     }
     
-    
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+        if centerAdminEmailSendYesNo.selectedSegmentIndex == 0 {
+            NSUserDefaults.standardUserDefaults().setBool( true , forKey: kCenterAdminEmailYesNo)
+        }
+        else {
+            NSUserDefaults.standardUserDefaults().setBool( false , forKey: kCenterAdminEmailYesNo)
+        }
+        
+        NSUserDefaults.standardUserDefaults().setObject(clientCenterNameTextField.text, forKey: kClientCenterTitelKey)
+        NSUserDefaults.standardUserDefaults().setObject(centerAdminEmailEntryField.text, forKey: kCenterAdminEmailKey)
+        //User Initialization complete
+        println("DONE called")
+        
+        NSUserDefaults.standardUserDefaults().setBool( true , forKey: kLoadedOnceKey)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
-    
-// Helper
+    // Helper
     
     func taskFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "UserModel")
@@ -222,7 +278,7 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
         fechedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         return fechedResultsController
     }
-
+    
     func passwordCheck () -> Bool {
         if verifyPasswordEntryField.text.uppercaseString == passwordEntryField.text.uppercaseString || passwordEntryField.text.isEmpty {
             return true
@@ -235,11 +291,11 @@ class UserAdminViewController: UIViewController, UITableViewDataSource, UITableV
     
     
     func hideKeyboard() {
-
+        
         userNameEntryField.resignFirstResponder()
         passwordEntryField.resignFirstResponder()
         verifyPasswordEntryField.resignFirstResponder()
-
+        
     }
     
 }

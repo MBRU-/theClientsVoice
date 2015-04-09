@@ -12,40 +12,46 @@ import CoreData
 
 class StartViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var clientNameEntryTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
-
+    
     @IBOutlet weak var UserAdminBarButton: UIBarButtonItem!
     @IBOutlet weak var QuestionAdminBarButton: UIBarButtonItem!
     @IBOutlet weak var commentsOnSwitch: UISwitch!
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
     var fechedResultsController:NSFetchedResultsController = NSFetchedResultsController()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         commentsOnSwitch.setOn(true, animated: true)
-
         UserAdminBarButton.enabled = User.isAdmin()
         QuestionAdminBarButton.enabled = User.isAdmin()
         fechedResultsController = getFetchedResultsController()
         fechedResultsController.delegate = self
         clientNameEntryTextField.delegate = self
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         fechedResultsController.performFetch(nil)
         tableView.reloadData()
+        if let txt = NSUserDefaults.standardUserDefaults().objectForKey(kClientCenterTitelKey) as? String {
+            navigationBar.topItem?.title = txt + " CSAT"
+        }
+        else {
+            navigationBar.topItem?.title = "Client Center CSAT"
+        }
+        
     }
     
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //called before transition to MainViewController
     //this is the place to set proprties in the destination view controller e.g. clientName
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -73,7 +79,15 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
             else {
                 return true
             }
-          }
+        }
+        else if identifier == "logoutUserSegue" { //calling UserLoginViewController
+            
+            println("Calling logoutUserSegue")
+            
+            //Disable AutoLogin feature
+            NSUserDefaults.standardUserDefaults().setBool( false , forKey: kAutoLoginKey)
+            return true
+        }
         return true
     }
     
@@ -89,14 +103,14 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
             return false
         }
     }
-   
+    
     
     //UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return fechedResultsController.sections!.count
     }
-   
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fechedResultsController.sections![section].numberOfObjects
@@ -105,7 +119,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("myCell") as UITableViewCell
         let theQuestion:QModel = fechedResultsController.objectAtIndexPath(indexPath) as QModel
-
+        
         cell.textLabel?.text = theQuestion.question
         cell.layer.cornerRadius = 10.0
         
@@ -135,9 +149,9 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
             
         }
         clientNameEntryTextField.resignFirstResponder()
-
+        
     }
-
+    
     //Custom Button Action
     
     @IBAction func defaultNavBarItemButtonPressed(sender: UIBarButtonItem) {
@@ -169,7 +183,7 @@ class StartViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 if let textLabel = theCell.textLabel?.text! {
                     selectedQuestions.append(textLabel)
                 }
-    
+                
             }
         }
         

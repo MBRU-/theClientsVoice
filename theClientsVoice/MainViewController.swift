@@ -45,11 +45,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         setupScreen(qCount)
         optionalCommentTextField.delegate = self
         
-        println("Register KB")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardPresented:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardRemoved:", name: UIKeyboardDidHideNotification, object: nil)
-        
-        
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,7 +60,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        println("Deregistering!")
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidHideNotification, object: nil)
     }

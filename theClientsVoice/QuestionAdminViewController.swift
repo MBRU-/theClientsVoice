@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITableViewDelegate, NSFetchedResultsControllerDelegate  {
+class QuestionAdminViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate  {
     
     @IBOutlet weak var addOrUpdateButton: UIBarButtonItem!
     
@@ -96,6 +96,7 @@ class QuestionAdminViewController: UIViewController, UITableViewDataSource,UITab
         addOrUpdateButton.title = "Update"
         
     }
+    
     
     //NSFechedResultsControllerDelegate
     func controllerDidChangeContent(controller: NSFetchedResultsController) {

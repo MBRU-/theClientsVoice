@@ -5,21 +5,46 @@
 //  Created by Martin Brunner on 27.11.14.
 //  Copyright (c) 2014 Martin Brunner. All rights reserved.
 //
+// Version Control
+// V1.0     initial version
+// V1.1     03.04.2015  Center name editable, report can be sent by eMail, including updated UserAdmin dialog
+// V1.2     04.04.2015  Optional Auto-Login added
+
 
 
 import UIKit
 import CoreData
 
+let kClientCenterTitelKey = "clKey"
+let kCenterAdminEmailKey = "centerAdminEmailKey"
+let kCenterAdminEmailYesNo = "kCenterAdminEmailYesNoKey"
+let kLoadedOnceKey = "kLoadedOnceKeyText"
+let kAutoLoginKey = "autoLoginKey"
+let kAutoUserNameKey = "kAutoUserName"
+let kAutoPasswordKey = "kPasswordKey"
+let kAutoIsAdminKey = "kAutoIsAdminKey"
+let kAppVersion = "v1.2"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let clientCenterTitle = "IBM Client Center Research-Zurich"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        // here we check if at lease onr record exists in the database, if not we create an Admin user for free
+        if NSUserDefaults.standardUserDefaults().boolForKey(kLoadedOnceKey) == false {
+            NSUserDefaults.standardUserDefaults().setObject(clientCenterTitle, forKey: kClientCenterTitelKey)
+            NSUserDefaults.standardUserDefaults().setObject("email@ibm.com", forKey: kCenterAdminEmailKey)
+            NSUserDefaults.standardUserDefaults().setBool( false , forKey: kCenterAdminEmailYesNo)
+            NSUserDefaults.standardUserDefaults().setObject("", forKey: kAutoUserNameKey)
+            NSUserDefaults.standardUserDefaults().setObject("", forKey: kAutoPasswordKey)
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kAutoIsAdminKey)
+            
+        }
+        
+        // here we check if at least one record exists in the database, if not we create an Admin user for free
         let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         let managedObjectContext = appDelegate.managedObjectContext!
         var fechedResultsController:NSFetchedResultsController = NSFetchedResultsController()

@@ -12,6 +12,7 @@
 		62078DED1A3D834A00072F6B /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62078DEC1A3D834A00072F6B /* UserLoginViewController.swift */; };
 		62078DF11A3DD5E000072F6B /* ModalTextPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62078DF01A3DD5E000072F6B /* ModalTextPopUp.swift */; };
 		62078DF31A3DD6F900072F6B /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62078DF21A3DD6F900072F6B /* PopUp.swift */; };
+		62C74EBF1ACD6D8900B09AFF /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C74EBE1ACD6D8900B09AFF /* MessageUI.framework */; };
 		730438201A39EB7600E545E0 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7304381F1A39EB7600E545E0 /* Alert.swift */; };
 		731E6A511A3B194A00BC1147 /* QModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6A501A3B194A00BC1147 /* QModel.swift */; };
 		732A44031A3F07CC0047EDE8 /* PrintResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A44021A3F07CC0047EDE8 /* PrintResultsViewController.swift */; };
@@ -50,6 +51,7 @@
 		62078DEC1A3D834A00072F6B /* UserLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginViewController.swift; sourceTree = "<group>"; };
 		62078DF01A3DD5E000072F6B /* ModalTextPopUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalTextPopUp.swift; sourceTree = "<group>"; };
 		62078DF21A3DD6F900072F6B /* PopUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopUp.swift; path = ../PopUp.swift; sourceTree = "<group>"; };
+		62C74EBE1ACD6D8900B09AFF /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7304381F1A39EB7600E545E0 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		731E6A501A3B194A00BC1147 /* QModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QModel.swift; path = ../QModel.swift; sourceTree = "<group>"; };
 		732A44021A3F07CC0047EDE8 /* PrintResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintResultsViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62C74EBF1ACD6D8900B09AFF /* MessageUI.framework in Frameworks */,
 				73C47B011A3987B800E5DDDE /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +139,7 @@
 		73A698D01A270AC800F5C268 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				62C74EBE1ACD6D8900B09AFF /* MessageUI.framework */,
 				73C47B001A3987B800E5DDDE /* CoreData.framework */,
 				73A698F51A270E8000F5C268 /* ibmClientCenter.jpg */,
 				738FA6A81A44125C007AA945 /* theClientsVoice.jpg */,
